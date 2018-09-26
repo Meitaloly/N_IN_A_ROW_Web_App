@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Game_WebApp/Game_WebApp.iml" filepath="$PROJECT_DIR$/Game_WebApp/Game_WebApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LogicEngine/LogicEngine.iml" filepath="$PROJECT_DIR$/LogicEngine/LogicEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/N_IN_A_ROW_Web_App.iml" filepath="$PROJECT_DIR$/N_IN_A_ROW_Web_App.iml" />
+    </modules>
+  </component>
+</project>
