@@ -1,6 +1,6 @@
-package chat.utils;
+package utils;
 
-import chat.constants.Constants;
+import constants.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

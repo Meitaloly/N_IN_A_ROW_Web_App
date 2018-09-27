@@ -1,0 +1,55 @@
+body {
+    background-image: url("/Images/background.png");
+    background-size: cover;
+
+}
+
+.titleImg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 50%;
+    height: 20%;
+}
+
+.enterBtn{
+    margin-left: 37%;
+    margin-top: 5%;
+    border-width: 5px;
+    border-color: yellow;
+    background-image: linear-gradient(#039195, #c87a6a),
+    linear-gradient(#4bb7be, #8c9987),
+    linear-gradient(#8cd4d7, #0a8489),
+    linear-gradient(#30aab2 0%, #8b9a89 50%, #c87a6a 100%);
+    width: 25%;
+    border-radius: 33px;
+    color: #eaffff;
+    font-weight: bold;
+    font-size: 200%;
+    /*padding: 10px 20px 10px 20px;*/
+    height: 12%;
+}
+
+.enterBtn:hover {
+    background-image:
+            /*linear-gradient(from 0% 0% to 15% 50% rgba(255,255,255,0.9), rgba(255,255,255,0)),*/
+            linear-gradient(#30aab2 0%, #8b9a89 50%, #c87a6a 100%),
+            linear-gradient(#8cd4d7, #0a8489),
+            linear-gradient(#4bb7be, #8c9987),
+            linear-gradient(#039195, #c87a6a);
+
+}
+@media all and (max-height: 540px) , all and (max-width: 700px) {
+    .enterBtn{
+        font-size: 150%;
+        height: 12%;
+    }
+}
+
+@media all and (max-height: 300px) , all and (max-width: 400px) {
+    .enterBtn{
+        font-size: 80%;
+        height: 12%;
+    }
+}

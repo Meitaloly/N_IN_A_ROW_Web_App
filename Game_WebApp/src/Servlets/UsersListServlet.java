@@ -1,8 +1,8 @@
-package chat.servlets;
+package Servlets;
 
-import chat.utils.ServletUtils;
+import UserAuthentication.UserManager;
 import com.google.gson.Gson;
-import engine.users.UserManager;
+import utils.ServletUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;

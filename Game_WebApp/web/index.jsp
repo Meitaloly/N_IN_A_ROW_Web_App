@@ -8,16 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title> N In a Row Game</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/pages/HomePage/HomePage.css">
+    <title>N In a Row Game</title>
   </head>
   <body>
-  <div class="container">
-    <h1>Welcome to the "N In a Row" Game</h1>
-    <br/>
-    <h2>Please enter a unique user name:</h2>
-    <form method="GET" action="login">
-      <input type="text" name="username" class=""/>
-      <input type="submit" value="Login"/>
-    </form>
-  </div>  </body>
-</html>
+  <div class="HomePage-Container">
+    <div class="homePage-Header">
+      <img class = "titleImg" src="/Images/NinARow-title1.png">
+    </div>
+    <div class = "homePage-Menu">
+        <form class = "enterForm" method="GET" action="/enter">
+            <input class = "enterBtn" type="submit" value="Enter"/>
+        </form>
+    </div>
+  </div>
+
+
+</body>
