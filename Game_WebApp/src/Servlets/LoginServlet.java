@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
     private final String LOBBY_PAGE = "/pages/GameLobby/Lobby.html";
     private final String SIGN_UP_URL = "/pages/SignUp/SingUpPage.html";
-    private final String LOGIN_ERROR_URL = "/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
+    private final String LOGIN_ERROR_URL = "/pages/Error_user_name/Error_name.html";  // must start with '/' since will be used in request dispatcher...
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -65,8 +65,9 @@ public class LoginServlet extends HttpServlet {
                     // and is relative to the web app root
                     // see this link for more details:
                     // http://timjansen.github.io/jarfiller/guide/servlet25/requestdispatcher.xhtml
-                    request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
-                    getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
+                    //request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
+                    //getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
+                    response.sendRedirect(LOGIN_ERROR_URL);
                 } else {
                     //add the new user to the users list
                     userManager.addUser(usernameFromParameter);
