@@ -1,6 +1,3 @@
-body {
-    background-image: url("/Images/background.png");
-}
 
 .titleImg{
     display: block;
@@ -34,28 +31,9 @@ body {
 
 .loginBtn{
     border-width: 2px;
-    border-color: yellow;
-    background-image: linear-gradient(#039195, #c87a6a),
-    linear-gradient(#4bb7be, #8c9987),
-    linear-gradient(#8cd4d7, #0a8489),
-    linear-gradient(#30aab2 0%, #8b9a89 50%, #c87a6a 100%);
     width: 150px;
-    border-radius: 25px;
-    color: #eaffff;
-    font-weight: bold;
     font-size: 100%;
-    /*padding: 10px 20px 10px 20px;*/
     height: 40px;
-}
-
-.loginBtn:hover {
-    background-image:
-        /*linear-gradient(from 0% 0% to 15% 50% rgba(255,255,255,0.9), rgba(255,255,255,0)),*/
-            linear-gradient(#30aab2 0%, #8b9a89 50%, #c87a6a 100%),
-            linear-gradient(#8cd4d7, #0a8489),
-            linear-gradient(#4bb7be, #8c9987),
-            linear-gradient(#039195, #c87a6a);
-
 }
 
 .errorLine{

@@ -10,6 +10,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/pages/HomePage/HomePage.css">
+    <link rel="stylesheet" href="/pages/common/common.css">
     <title>N In a Row Game</title>
   </head>
   <body>

@@ -2,9 +2,18 @@ var refreshRate = 1000; //mili seconds
 var USER_LIST_URL = "/pages/GameLobby/Lobby/userslist";
 
 $(function() {
-
     //The users list is refreshed automatically every second
     setInterval(ajaxUsersList, refreshRate);
+})
+
+$(function(){
+    $.ajax({
+        type: 'GET',
+        url: "/pages/GameLobby/Lobby/logout",
+        success: function(user) {
+            $(".currUser").text(user);
+        }
+    });
 })
 
     function ajaxUsersList() {
@@ -29,4 +38,39 @@ function refreshUsersList(users) {
         $('<li>' + username.userName + " - " + username.type + '</li>').appendTo($("#userList"));
     });
 }
+
+$(document).ready(function(){
+    $("#logoutForm").on('submit', function (e)
+    {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "/pages/GameLobby/Lobby/logout",
+            //data: {"username" : userName, "playerType" : playerType},
+            success: function(response)
+            {
+                console.log("you loggedd out!");
+                window.location.replace("/pages/SignUp/SignUpPage.html");
+            },
+        })
+    })
+});
+
+
+$(document).ready(function(){
+    $("#newGameForm").on('submit', function (e)
+    {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "/pages/GameLobby/Lobby/createNewGame",
+            //data: {"username" : userName, "playerType" : playerType},
+            success: function(response)
+            {
+                console.log("you loggedd out!");
+                window.location.replace("/pages/SignUp/SignUpPage.html");
+            },
+        })
+    })
+});
 
