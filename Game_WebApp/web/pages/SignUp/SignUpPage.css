@@ -39,13 +39,13 @@ body {
     linear-gradient(#4bb7be, #8c9987),
     linear-gradient(#8cd4d7, #0a8489),
     linear-gradient(#30aab2 0%, #8b9a89 50%, #c87a6a 100%);
-    width: 100px;
+    width: 150px;
     border-radius: 25px;
     color: #eaffff;
     font-weight: bold;
     font-size: 100%;
     /*padding: 10px 20px 10px 20px;*/
-    height: 32px;
+    height: 40px;
 }
 
 .loginBtn:hover {
@@ -58,3 +58,16 @@ body {
 
 }
 
+.errorLine{
+    margin-top: 20px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: red;
+    display: none;
+}
+
+.playerType{
+    font-family: sans-serif;
+    font-size: 15px;
+}

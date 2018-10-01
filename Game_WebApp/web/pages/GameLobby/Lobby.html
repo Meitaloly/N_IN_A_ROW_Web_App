@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lobby</title>
-    <div>you r in the lobby!</div>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="Lobby.css">
+        <title>Lobby</title>
+    </head>
+    <body>
+        <img class = "titleImg" src="/Images/Lobby-title.png">
+        <div class="lobby_container">
+            <div class="left">
+                <div class="userList_container">
+                    <div class = "userListTitle">Logged in users</div>
+                    </br>
+                    <div id = "userList">
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="gamesList_container">
+                    <div class = "gameListTitle">Game rooms</div>
+                    </br>
+                    <div id = "gameList">
+                    </div>
+                </div>
+            </div>
 
-</body>
+        </div>
+    </body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./Lobby.js"></script>
 </html>

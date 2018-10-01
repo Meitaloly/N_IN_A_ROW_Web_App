@@ -6,10 +6,11 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Game_WebApp" />
+          <element id="library" level="project" name="apache-tomcat-8.51" />
         </element>
         <element id="directory" name="lib">
           <element id="artifact" artifact-name="LogicEngine:jar" />
-          <element id="library" level="project" name="gson-2.1" />
+          <element id="library" level="project" name="gson-2.11" />
         </element>
       </element>
     </root>

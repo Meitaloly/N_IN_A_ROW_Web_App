@@ -1,12 +1,11 @@
 package Servlets;
 
+import UserAuthentication.User;
 import UserAuthentication.UserManager;
 import com.google.gson.Gson;
 import utils.ServletUtils;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Set;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,15 +16,21 @@ public class UsersListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //returning JSON objects, not HTML
+        UserManager userManager = ServletUtils.getUserManager(getServletContext());
+        Map<String, User> usersList = userManager.getUsers();
+        String json = new Gson().toJson(usersList);
         response.setContentType("application/json");
-        try (PrintWriter out = response.getWriter()) {
-            Gson gson = new Gson();
-            UserManager userManager = ServletUtils.getUserManager(getServletContext());
-            Set<String> usersList = userManager.getUsers();
-            String json = gson.toJson(usersList);
-            out.println(json);
-            out.flush();
-        }
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+//
+//        try (PrintWriter out = response.getWriter()) {
+//            Gson gson = new Gson();
+//            UserManager userManager = ServletUtils.getUserManager(getServletContext());
+//            Map<String, User> usersList = userManager.getUsers();
+//            String json = gson.toJson(usersList);
+//            out.println(json);
+//            out.flush();
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

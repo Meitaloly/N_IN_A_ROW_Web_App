@@ -3,8 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="SignUpPage.css">
-
-        <title>N IN A ROW GAME</title>
+        <title>Login</title>
 
         <!-- Link the Bootstrap (from twitter) CSS framework in order to use its classes-->
         <!--<link rel="stylesheet" href="../../common/bootstrap.min.css">-->
@@ -18,10 +17,22 @@
             <img class = "titleImg" src="/Images/welcomeTitle.png">
             <br/>
             <div class="pleaseLine">Please enter a unique user name:</div>
-            <form class="loginForm" method="GET" action="login">
-                <input class="userNameInput" type="text" name="username" class=""/>
-                <input class="loginBtn" type="submit" value="Login"/>
+            <form id ="formId" class="loginForm" method="GET" action="login">
+                <div>
+                    <input class="userNameInput" type="text" name="username"/><br><br>
+                    <input type="radio" name="playerType" value="Computer" checked> <span class="playerType">Computer</span>
+                    <input type="radio" name="playerType" value="Human"> <span class="playerType">Human</span><br><br>
+                </div>
+                <div>
+                    <input class="loginBtn" disabled type="submit" value="Login"/><br>
+                </div>
+
             </form>
+            <div class="errorLine">
+                User name already exists! Try again...
+            </div>
         </div>
     </body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./signUpJs.js"></script>
 </html>
