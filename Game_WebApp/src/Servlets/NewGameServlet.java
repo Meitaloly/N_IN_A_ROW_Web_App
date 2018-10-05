@@ -1,5 +1,6 @@
 package Servlets;
 
+import GamesManager.GameManager;
 import UserAuthentication.UserManager;
 import com.google.gson.Gson;
 import utils.ServletUtils;
@@ -9,15 +10,43 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Scanner;
 
 public class NewGameServlet extends HttpServlet {
 
     protected void processRequestPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        GameManager gameManager = ServletUtils.getGameManager(getServletContext());
+        response.setContentType("text/html");
+        //String fileStr ="";
+        String currUser = "";
 
+//        Collection<Part> parts = request.getParts();
+//        StringBuilder fileContent = new StringBuilder();
+//
+//        for (Part part : parts) {
+//            //to write the content of the file to a string
+//            fileContent.append(readFromInputStream(part.getInputStream()));
+//            fileStr = fileContent.toString();
+//            currUser = part.getName();
+//        }
+        StringBuilder fileContent = new StringBuilder();
+        PrintWriter out = response.getWriter();
+        fileContent.append(readFromInputStream(request.getInputStream()));
+        String fileStr = fileContent.toString();
+        String msg = gameManager.checkGameValidation(fileStr);
+        out.println(msg);
+
+    }
+
+    private String readFromInputStream(InputStream inputStream) {
+        return new Scanner(inputStream).useDelimiter("\\Z").next();
     }
 
     protected void processRequestGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,7 +79,7 @@ public class NewGameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequestPost(request, response);
+            processRequestPost(request, response);
     }
 
     /**
