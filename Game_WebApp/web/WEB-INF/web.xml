@@ -9,6 +9,10 @@
         <servlet-class>Servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GamesListServlet</servlet-name>
+        <servlet-class>Servlets.GamesListServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>NewGameServlet</servlet-name>
         <servlet-class>Servlets.NewGameServlet</servlet-class>
     </servlet>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
         <url-pattern>/pages/GameLobby/Lobby/userslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GamesListServlet</servlet-name>
+        <url-pattern>/pages/GameLobby/Lobby/gameList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>

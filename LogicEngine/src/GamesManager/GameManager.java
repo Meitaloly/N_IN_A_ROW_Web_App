@@ -132,4 +132,7 @@ public class GameManager {
         gamesList.put(gameToAdd.getGameName(), gameToAdd);
     }
 
+    public Map<String, GameInList> getGamesList() {
+        return gamesList;
+    }
 }

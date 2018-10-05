@@ -1,10 +1,13 @@
 var refreshRate = 1000; //mili seconds
 var USER_LIST_URL = "/pages/GameLobby/Lobby/userslist";
+var GAME_LIST_URL = "/pages/GameLobby/Lobby/gameList";
+var currGames ={};
 var loggedUser;
 
 $(function() {
     //The users list is refreshed automatically every second
     setInterval(ajaxUsersList, refreshRate);
+    setInterval(ajaxGamesList, refreshRate);
 })
 
 $(function(){
@@ -18,12 +21,27 @@ $(function(){
     });
 })
 
-    function ajaxUsersList() {
+function ajaxUsersList() {
     $.ajax({
         type: 'GET',
         url: USER_LIST_URL,
-        success: function(users) {
+        success: function (users) {
             refreshUsersList(users);
+        }
+    });
+}
+
+function ajaxGamesList() {
+
+    $.ajax({
+        type: 'GET',
+        url: GAME_LIST_URL,
+        success: function (games) {
+            if(JSON.stringify(currGames)!== JSON.stringify(games))
+            {
+                currGames = games;
+                refreshGamesList(games);
+            }
         }
     });
 }
@@ -39,6 +57,33 @@ function refreshUsersList(users) {
         //append it to the #userList (div with id=userList) element
         $('<li>' + username.userName + " - " + username.type + '</li>').appendTo($("#userList"));
     });
+}
+
+function refreshGamesList(games) {
+    //clear all current users
+    // rebuild the list of users: scan all users and add them to the list of users
+    if (Object.keys(games).length > 0) {
+        $("#gameList").empty();
+        $.each(games || [], function (index, game) {
+            console.log("Adding user #" + index + ": " + game.gameName);
+            //create a new <option> tag with a value in it and
+            //append it to the #userList (div with id=userList) element
+            var template = $("#mock-template").clone().html(function(i,html) {
+                return html
+                    .replace('{{gameName}}', game.gameName)
+                    .replace('{{user}}', game.userOwner)
+                    .replace('{{rows}}', game.rows)
+                    .replace('{{cols}}', game.cols)
+                    .replace('{{target}}', game.target)
+                    .replace('{{variant}}',game.variant)
+                    .replace('{{status}}', game.status)
+                    .replace('{{signed}}', game.currNumOfPlayersInGame)
+                    .replace('{{required}}', game.numOfPlayersRequired);
+            });
+            template.attr('id', game.gameName.replace(/\s/g,"-"));
+            $(template).appendTo("#gameList").show();
+        });
+    }
 }
 
 $(document).ready(function(){

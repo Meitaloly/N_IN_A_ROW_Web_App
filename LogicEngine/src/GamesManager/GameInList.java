@@ -9,6 +9,7 @@ public class GameInList {
     private String gameName;
     private int numOfPlayersRequired;
     private int currNumOfPlayersInGame = 0;
+    private String status = "Not active";
 
     public GameInList(String xmlContext)
     {
@@ -54,6 +55,10 @@ public class GameInList {
 
     public String getGameName() {
         return gameName;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getUserOwner() {
