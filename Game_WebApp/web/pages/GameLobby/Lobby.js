@@ -141,6 +141,13 @@ $(document).ready(function(){
     })
 });
 
+function openGame()
+    {
+      window.location.replace("/pages/CurrGame/Game.html");
+
+    };
+
+
 $(document).ready(function(){
     $("#newGameForm").on('submit', function (e)
     {
