@@ -141,12 +141,20 @@ $(document).ready(function(){
     })
 });
 
-function openGame()
-    {
-      window.location.replace("/pages/CurrGame/Game.html");
+function openGame(btn) {
+    var parent_id = $(btn).parent().attr('id');
+    var gameName = parent_id.replace("-"," ");
+    updateNumOfPlayerInCurrGame(gameName);
+    window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
+};
 
-    };
-
+function updateNumOfPlayerInCurrGame(gameName){
+    $.ajax({
+        type: 'POST',
+        url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
+        data: {"gameName": gameName}
+    })
+}
 
 $(document).ready(function(){
     $("#newGameForm").on('submit', function (e)

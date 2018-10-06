@@ -21,8 +21,10 @@
             </div>
             <div class="left2">
                 <div class="game_info_container">
-                    <div class = "userListTitle">Game info</div>
-
+                    <div class = "gameInfoTitle">Game info</div>
+                    </br>
+                    <div id = "game_info">
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,10 +37,18 @@
                 </form>
                 <br />
             </div>
-
         </div>
-
     </div>
-
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="./Game.js"></script>
+
+
+<div class= "gameInfoTemp" id="GameInfo-template" style = "display: none">
+    <div>Game's name: {{gameName}}</div>
+    <div>Variant: {{variant}} </div>
+    <div>Game status: {{status}}</div>
+    <div>Target: {{target}}</div>
+    <div>Player turn:  {{playerName}}</div>
+</div>
 </html>

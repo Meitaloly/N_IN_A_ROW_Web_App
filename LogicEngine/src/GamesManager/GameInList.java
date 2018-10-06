@@ -1,5 +1,7 @@
 package GamesManager;
 
+import GameLogic.GameManager;
+
 public class GameInList {
     private String userOwner;
     private int rows;
@@ -10,6 +12,7 @@ public class GameInList {
     private int numOfPlayersRequired;
     private int currNumOfPlayersInGame = 0;
     private String status = "Not active";
+    private GameManager currGameManager;
 
     public GameInList(String xmlContext)
     {
@@ -63,6 +66,23 @@ public class GameInList {
 
     public String getUserOwner() {
         return userOwner;
+    }
+
+    public void activeGame(){
+        currGameManager = new GameManager();
+        currGameManager.setActiveGame(true);
+        currGameManager.setTurnIndex(0);
+//        currGameManager.setColorosToPlayers();
+    }
+
+    public void incNumOfSignedPlayers()
+    {
+        currNumOfPlayersInGame++;
+        if(currNumOfPlayersInGame == numOfPlayersRequired)
+        {
+            status = "Active";
+            activeGame();
+        }
     }
 
 }

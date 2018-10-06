@@ -135,4 +135,9 @@ public class GameManager {
     public Map<String, GameInList> getGamesList() {
         return gamesList;
     }
+
+    public GameInList getGameInListByName(String gameName)
+    {
+        return gamesList.get(gameName);
+    }
 }

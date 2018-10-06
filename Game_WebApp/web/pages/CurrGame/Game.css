@@ -39,10 +39,10 @@
 }
 
 .left1, .left2{
-    width: 30%;
+    width: 90%;
     padding-right: 15px;
+    margin-bottom: 5px;
 }
-
 
 .right{
     flex:1;
@@ -61,7 +61,7 @@
     border-radius: 10px;
 }
 
-.userListTitle, .gameBoardTitle{
+.userListTitle, .gameBoardTitle, .gameInfoTitle{
     box-sizing: border-box;
     text-align: center;
     font-size:25px;

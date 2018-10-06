@@ -7,9 +7,8 @@ import java.util.*;
 
 public class GameManager {
 
-    private XmlFileUtils XFU;
     private GameBoard gameBoard;
-    private GameDescriptor desc;
+    //private GameDescriptor desc;
     private Map<Integer, GameLogic.Player> playersInMap;
     private ArrayList<GameLogic.Player> playersByOrder;
     private String variant;
@@ -34,8 +33,6 @@ public class GameManager {
     }
 
     public GameManager() {
-        XFU = new XmlFileUtils();
-        XFU.setGameManager(this);
         gameBoard = new GameBoard();
     }
 
@@ -73,23 +70,23 @@ public class GameManager {
         return variant;
     }
 
-    public int checkXmlFile(String path) {
-        int res = -1;
-        XFU.setFilePath(path);
-        synchronized (this) {
-            res = XFU.checkXmlFileValidation(gameBoard);
-        }
-        return res;
+//    public int checkXmlFile(String path) {
+//        int res = -1;
+//        XFU.setFilePath(path);
+//        synchronized (this) {
+//            res = XFU.checkXmlFileValidation(gameBoard);
+//        }
+//        return res;
+//
+//    }
 
-    }
+    //public void setDesc(GameDescriptor desc) {
+//        this.desc = desc;
+//    }
 
-    public void setDesc(GameDescriptor desc) {
-        this.desc = desc;
-    }
-
-    public GameDescriptor getDesc() {
-        return desc;
-    }
+//    public GameDescriptor getDesc() {
+//        return desc;
+//    }
 
     public GameBoard getGameBoard() {
         return gameBoard;
@@ -184,35 +181,35 @@ public class GameManager {
         return winner;
     }
 
-    public boolean buildPlayersFromFile() {
-        boolean res = true;
-        playersInMap = new HashMap<>();
-        playersInMap.clear();
-        playersByOrder = new ArrayList<>();
-        playersByOrder.clear();
-
-        for (GameLogic.generatedClasses.Player player : desc.getPlayers().getPlayer()) {
-            Integer playerId = Integer.valueOf(player.getId());
-            if (playersInMap.containsKey(playerId)) {
-                playersInMap.clear();
-                playersByOrder.clear();
-                res = false;
-                break;
-            } else {
-                GameLogic.Player newPlayer = new GameLogic.Player();
-                newPlayer.setId((int) player.getId());
-                newPlayer.setName(player.getName());
-                newPlayer.setPlayerType(player.getType());
-                playersInMap.put(newPlayer.getId(), newPlayer);
-                playersByOrder.add(newPlayer);
-            }
-        }
-        if (res) {
-            variant = desc.getGame().getVariant();
-            setColorosToPlayers();
-        }
-        return res;
-    }
+//    public boolean buildPlayersFromFile() {
+//        boolean res = true;
+//        playersInMap = new HashMap<>();
+//        playersInMap.clear();
+//        playersByOrder = new ArrayList<>();
+//        playersByOrder.clear();
+//
+//        for (GameLogic.generatedClasses.Player player : desc.getPlayers().getPlayer()) {
+//            Integer playerId = Integer.valueOf(player.getId());
+//            if (playersInMap.containsKey(playerId)) {
+//                playersInMap.clear();
+//                playersByOrder.clear();
+//                res = false;
+//                break;
+//            } else {
+//                GameLogic.Player newPlayer = new GameLogic.Player();
+//                newPlayer.setId((int) player.getId());
+//                newPlayer.setName(player.getName());
+//                newPlayer.setPlayerType(player.getType());
+//                playersInMap.put(newPlayer.getId(), newPlayer);
+//                playersByOrder.add(newPlayer);
+//            }
+//        }
+//        if (res) {
+//            variant = desc.getGame().getVariant();
+//            setColorosToPlayers();
+//        }
+//        return res;
+//    }
 
 
     public boolean checkColFullInBoard(int col) {

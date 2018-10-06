@@ -9,6 +9,14 @@
         <servlet-class>Servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdatePlayersInGameServlet</servlet-name>
+        <servlet-class>Servlets.UpdatedPlayersInGameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GameInfoServlet</servlet-name>
+        <servlet-class>Servlets.GameInfoServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GamesListServlet</servlet-name>
         <servlet-class>Servlets.GamesListServlet</servlet-class>
     </servlet>
@@ -29,8 +37,16 @@
         <servlet-class>Servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
+        <servlet-name>UpdatePlayersInGameServlet</servlet-name>
+        <url-pattern>/pages/GameLobby/Lobby/updatedSignedPlayers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/pages/SignUp/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameInfoServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/GameInfo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewGameServlet</servlet-name>
@@ -43,6 +59,7 @@
     <servlet-mapping>
         <servlet-name>UsersListServlet</servlet-name>
         <url-pattern>/pages/GameLobby/Lobby/userslist</url-pattern>
+        <url-pattern>/pages/CurrGame/Game/userlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GamesListServlet</servlet-name>
