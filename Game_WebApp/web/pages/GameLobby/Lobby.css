@@ -26,6 +26,14 @@
     cursor: pointer;
 }
 
+.btnDisable{
+    display: none;
+}
+
+.btnShown{
+    display: block;
+}
+
 .gameInList{
     box-sizing: border-box;
     padding: 5px;

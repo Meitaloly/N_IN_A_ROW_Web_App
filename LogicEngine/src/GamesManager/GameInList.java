@@ -32,6 +32,11 @@ public class GameInList {
         return valueArr[0];
     }
 
+    public void decNumOfSignedPlayers()
+    {
+        currNumOfPlayersInGame--;
+    }
+
     public String getVariant() {
         return variant;
     }
@@ -73,6 +78,16 @@ public class GameInList {
         currGameManager.setActiveGame(true);
         currGameManager.setTurnIndex(0);
 //        currGameManager.setColorosToPlayers();
+    }
+
+    public boolean isActive()
+    {
+        boolean res = true;
+        if(status.equals("Not active"))
+        {
+            res = false;
+        }
+        return res;
     }
 
     public void incNumOfSignedPlayers()

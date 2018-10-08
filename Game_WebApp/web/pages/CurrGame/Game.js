@@ -2,7 +2,8 @@ var refreshRate = 1000; //mili seconds
 var PLAYER_LIST_URL = "/pages/CurrGame/Game/userlist";
 var GAME_INFO_URL = "/pages/CurrGame/Game/GameInfo";
 var loggedUser;
-
+var CurrGameName;
+var gameBoard;
 
 $(function() {
     setInterval(ajaxUsersList, refreshRate);
@@ -89,4 +90,10 @@ function logOutFromGame() {
                 window.location.replace("/pages/GameLobby/Lobby.html");
             },
         })
+
+    $.ajax({
+            type: 'POST',
+            url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
+            data: {"gameName": CurrGameName, "action": "remove"}
+    })
 }

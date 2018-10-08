@@ -65,7 +65,7 @@ function refreshGamesList(games) {
     if (Object.keys(games).length > 0) {
         $("#gameList").empty();
         $.each(games || [], function (index, game) {
-            console.log("Adding user #" + index + ": " + game.gameName);
+            console.log("Adding game #" + index + ": " + game.gameName);
             //create a new <option> tag with a value in it and
             //append it to the #userList (div with id=userList) element
             var template = $("#mock-template").clone().html(function(i,html) {
@@ -79,9 +79,28 @@ function refreshGamesList(games) {
                     .replace('{{status}}', game.status)
                     .replace('{{signed}}', game.currNumOfPlayersInGame)
                     .replace('{{required}}', game.numOfPlayersRequired);
+                    // .replace('{{join}}', "Join game");
             });
             template.attr('id', game.gameName.replace(/\s/g,"-"));
             $(template).appendTo("#gameList").show();
+            //
+            // if(game.numOfPlayersRequired == game.currNumOfPlayersInGame ) {
+            //     template.replace('{{join}}', "Game started");
+            // }
+            var gameClass = game.gameName.replace(/\s/g, "-")
+
+            if(game.status.toLowerCase() === "active") {
+                $('#' + gameClass).children('.btn').addClass('btnDisable');
+                $('#' + gameClass).children('.btn').removeClass('btnShown');
+
+            }
+            else
+            {
+                $('#' + gameClass).children('.btn').removeClass('btnDisable');
+                $('#' + gameClass).children('.btn').addClass('btnShown');
+
+
+            }
         });
     }
 }
@@ -144,7 +163,7 @@ $(document).ready(function(){
 function openGame(btn) {
     var parent_id = $(btn).parent().attr('id');
     var gameName = parent_id.replace("-"," ");
-    updateNumOfPlayerInCurrGame(gameName);
+    var isActive = updateNumOfPlayerInCurrGame(gameName);
     updateGameName(loggedUser,gameName);
     window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
 
@@ -161,11 +180,18 @@ function updateGameName(userName,gameName){
 
 
 function updateNumOfPlayerInCurrGame(gameName){
+    var isActive = false;
     $.ajax({
         type: 'POST',
         url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
-        data: {"gameName": gameName}
+        data: {"gameName": gameName, "action": "add"},
+        success: function(response) {
+            console.log("game is active");
+            isActive = true;
+        }
     })
+
+    return isActive;
 }
 
 $(document).ready(function(){

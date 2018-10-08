@@ -2,20 +2,40 @@ package Servlets;
 
 import GamesManager.GameInList;
 import GamesManager.GameManager;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class UpdatedPlayersInGameServlet extends HttpServlet {
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = utils.ServletUtils.getGameManager(getServletContext());
         String gameName = request.getParameter("gameName");
+        String action = request.getParameter("action");
         GameInList currGame = gameManager.getGameInListByName(gameName);
-        currGame.incNumOfSignedPlayers();
+        response.setContentType("text/html;charset=UTF-8");
+        if(action.equals("add")){
+            currGame.incNumOfSignedPlayers();
+            if(currGame.isActive())
+            {
+                response.sendError(HttpServletResponse.SC_OK, "game is active");
+            }
+            else
+            {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "game is not active");
+            }
+        }
+        else
+        {
+            currGame.decNumOfSignedPlayers();
+        }
+
+        final PrintWriter out = response.getWriter();
+        out.write("OK");
+        out.close();
         return;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
