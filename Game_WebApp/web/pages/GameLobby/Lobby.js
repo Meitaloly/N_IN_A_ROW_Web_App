@@ -145,8 +145,20 @@ function openGame(btn) {
     var parent_id = $(btn).parent().attr('id');
     var gameName = parent_id.replace("-"," ");
     updateNumOfPlayerInCurrGame(gameName);
+    updateGameName(loggedUser,gameName);
     window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
+
 };
+
+function updateGameName(userName,gameName){
+    $.ajax({
+        type: 'POST',
+        url: "/pages/GameLobby/Lobby/updateUserGameServlet",
+        data: {"username" : userName, "gameName" : gameName}
+    })
+}
+
+
 
 function updateNumOfPlayerInCurrGame(gameName){
     $.ajax({

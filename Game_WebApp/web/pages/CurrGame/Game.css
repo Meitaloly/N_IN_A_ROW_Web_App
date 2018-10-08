@@ -29,6 +29,28 @@
     margin: 0 auto;
 }
 
+.logoutBtn{
+    width: 15%;
+    height: 100%;
+}
+
+.logout{
+    font-family: sans-serif;
+    font-size:18px;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    margin-left: 8%;
+    height: 30px;
+}
+
+#logoutForm{
+    height: 100%;
+}
+
+.currUser{
+    margin-right:20px;
+}
+
 .left_container
 {
     display: flex;
@@ -85,3 +107,4 @@
     position: absolute;
     left: 40%;
 }
+

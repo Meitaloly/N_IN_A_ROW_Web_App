@@ -1,10 +1,23 @@
 var refreshRate = 1000; //mili seconds
 var PLAYER_LIST_URL = "/pages/CurrGame/Game/userlist";
 var GAME_INFO_URL = "/pages/CurrGame/Game/GameInfo";
+var loggedUser;
+
 
 $(function() {
     setInterval(ajaxUsersList, refreshRate);
     getGameInfoByGameName();
+    $(function(){
+        $.ajax({
+            type: 'GET',
+            url: "/pages/CurrGame/Game/loggedUser",
+            success: function(user) {
+                loggedUser = user;
+                $(".currUser").text(user);
+            }
+        });
+    })
+
 })
 
 function ajaxUsersList() {
@@ -26,19 +39,25 @@ function refreshUsersList(users) {
         console.log("Adding user #" + index + ": " + username);
         //create a new <option> tag with a value in it and
         //append it to the #userList (div with id=playerList) element
-        $('<li>' + username.userName + " - " + username.type + '</li>').appendTo($("#playerList"));
+        var str2 = username.game;
+        var isEqual = CurrGameName.localeCompare(str2);
+        if (isEqual === 0) {
+            $('<li>' + username.userName + " - " + username.type + '</li>').appendTo($("#playerList"));
+        }
     });
 }
+
+
 
 function getGameInfoByGameName()
 {
     var urlArr = window.location.href.split("?");
     var nameArr = urlArr[1].split("=");
-    var gameName = nameArr[1].replace("-"," ");
+    CurrGameName = nameArr[1].replace("-"," ");
 
     $.ajax({
         type: 'POST',
-        data: {"gameName" : gameName},
+        data: {"gameName" : CurrGameName},
         url: GAME_INFO_URL,
         success: function (game) {
             showGameInfoOnScreen(game);
@@ -58,4 +77,16 @@ function showGameInfoOnScreen(game)
     });
     template.attr('id', game.gameName.replace(/\s/g,"-")+"-info");
     $(template).appendTo("#game_info").show();
+}
+
+function logOutFromGame() {
+        $.ajax({
+            type: 'POST',
+            url: "/pages/CurrGame/Game/LogoutFromCurrGameServlet",
+            data: {"username" : loggedUser},
+            success: function (response) {
+                console.log("you loggedd out!");
+                window.location.replace("/pages/GameLobby/Lobby.html");
+            },
+        })
 }

@@ -23,6 +23,11 @@ public class UserManager {
         users.remove(username);
     }
 
+    public synchronized void updateGameName(String uName,String gName){
+        User currUser = users.get(uName);
+        currUser.setUserGame(gName);
+    }
+
     public synchronized Map<String,User> getUsers() {
         return users;
     }

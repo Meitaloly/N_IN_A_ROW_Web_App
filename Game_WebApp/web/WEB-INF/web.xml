@@ -36,6 +36,22 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>Servlets.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateUserGameServlet</servlet-name>
+        <servlet-class>Servlets.updateUserGameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutFromCurrGameServlet</servlet-name>
+        <servlet-class>Servlets.LogoutFromCurrGameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutFromCurrGameServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/LogoutFromCurrGameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateUserGameServlet</servlet-name>
+        <url-pattern>/pages/GameLobby/Lobby/updateUserGameServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdatePlayersInGameServlet</servlet-name>
         <url-pattern>/pages/GameLobby/Lobby/updatedSignedPlayers</url-pattern>
@@ -68,5 +84,6 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/pages/GameLobby/Lobby/logout</url-pattern>
+        <url-pattern>/pages/CurrGame/Game/loggedUser</url-pattern>
     </servlet-mapping>
 </web-app>
