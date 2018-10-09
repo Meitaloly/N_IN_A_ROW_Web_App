@@ -44,6 +44,14 @@
         <servlet-name>LogoutFromCurrGameServlet</servlet-name>
         <servlet-class>Servlets.LogoutFromCurrGameServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>isActiveGameServlet</servlet-name>
+        <servlet-class>Servlets.isActiveGameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>isActiveGameServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/isActiveGame</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutFromCurrGameServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/LogoutFromCurrGameServlet</url-pattern>

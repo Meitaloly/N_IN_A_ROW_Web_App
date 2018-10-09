@@ -25,6 +25,10 @@ public class GameInList {
         numOfPlayersRequired = Integer.parseInt(getValueFromSplitString(xmlContext,"total-players=\"","\""));
     }
 
+    public GameManager getCurrGameManager() {
+        return currGameManager;
+    }
+
     private String getValueFromSplitString(String strToSplit, String firstStr, String SecStr)
     {
         String[] arr = strToSplit.split(firstStr);
@@ -77,6 +81,7 @@ public class GameInList {
         currGameManager = new GameManager();
         currGameManager.setActiveGame(true);
         currGameManager.setTurnIndex(0);
+        currGameManager.setGameBoard(rows,cols,target);
 //        currGameManager.setColorosToPlayers();
     }
 

@@ -5,15 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GameBoard {
-    long rows;
-    long cols;
-    long target;
+    int rows;
+    int cols;
+    int target;
     int[][] board;
     int numOfFreePlaces;
 
-    public GameBoard(){}
-
-    public void setGameBoard(long i_rows, long i_cols, long i_target)
+    public void setGameBoard(int i_rows, int i_cols, int i_target)
     {
         rows = i_rows;
         cols = i_cols;
@@ -90,7 +88,7 @@ public class GameBoard {
             //board[i][0] = i;
         }
     }
-    public void setTarget(long target) {
+    public void setTarget(int target) {
         this.target = target;
     }
 
@@ -104,11 +102,11 @@ public class GameBoard {
         numOfFreePlaces = (int) (rows - 1) * (int) (cols - 1);
     }
 
-    public void setCols(long cols) {
+    public void setCols(int cols) {
         this.cols = cols;
     }
 
-    public void setRows(long rows) {
+    public void setRows(int rows) {
         this.rows = rows;
     }
 

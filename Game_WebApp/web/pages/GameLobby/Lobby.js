@@ -163,7 +163,7 @@ $(document).ready(function(){
 function openGame(btn) {
     var parent_id = $(btn).parent().attr('id');
     var gameName = parent_id.replace("-"," ");
-    var isActive = updateNumOfPlayerInCurrGame(gameName);
+    updateNumOfPlayerInCurrGame(gameName);
     updateGameName(loggedUser,gameName);
     window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
 
@@ -180,18 +180,11 @@ function updateGameName(userName,gameName){
 
 
 function updateNumOfPlayerInCurrGame(gameName){
-    var isActive = false;
     $.ajax({
         type: 'POST',
         url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
         data: {"gameName": gameName, "action": "add"},
-        success: function(response) {
-            console.log("game is active");
-            isActive = true;
-        }
     })
-
-    return isActive;
 }
 
 $(document).ready(function(){

@@ -1,12 +1,16 @@
 var refreshRate = 1000; //mili seconds
 var PLAYER_LIST_URL = "/pages/CurrGame/Game/userlist";
 var GAME_INFO_URL = "/pages/CurrGame/Game/GameInfo";
+var ACTIVE_GAME_URL = "/pages/CurrGame/Game/isActiveGame";
 var loggedUser;
 var CurrGameName;
 var gameBoard;
+var isActive = false;
+var gameUsers = [];
 
 $(function() {
     setInterval(ajaxUsersList, refreshRate);
+    setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
     $(function(){
         $.ajax({
@@ -26,9 +30,47 @@ function ajaxUsersList() {
         type: 'GET',
         url: PLAYER_LIST_URL,
         success: function (users) {
-            refreshUsersList(users);
+            if(JSON.stringify(users)!== JSON.stringify(gameUsers)) {
+                gameUsers = users;
+                refreshUsersList(gameUsers);
+            }
         }
     });
+}
+
+function isActiveGame()
+{
+    $.ajax({
+        type: 'GET',
+        url: ACTIVE_GAME_URL,
+        data:{"gameName": CurrGameName},
+        success: function (res) {
+            if(JSON.stringify(res.isActive)!== JSON.stringify(isActive))
+            {
+                isActive = res.isActive;
+                if(res.isActive)
+                {
+                    drawGameBoard(res.gameBoard);
+                }
+            }
+        }
+    });
+}
+
+function drawGameBoard(gameBoard) {
+    console.log(gameBoard);
+    var space =1;
+    var rows = gameBoard.length;
+    var cols = gameBoard[0].length;
+    for (var i = 0; i < rows; i++) {
+        var ch = "";
+        for(var j=0; j<cols; j++) {
+            ch += "<td class = '"+"tr"+ i + "X" + j+ "'></td>";
+            space++;
+        }
+
+        $("#gameBoard").append("<tr>"+ch+"</tr>");
+    }
 }
 
 function refreshUsersList(users) {

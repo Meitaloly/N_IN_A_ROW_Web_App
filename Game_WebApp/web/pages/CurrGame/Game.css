@@ -55,6 +55,12 @@
     margin-right:20px;
 }
 
+td{
+    background-color: black;
+    width: 15%;
+    height: 20%;
+}
+
 .left_container
 {
     display: flex;

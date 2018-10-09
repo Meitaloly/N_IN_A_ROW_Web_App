@@ -23,6 +23,11 @@ public class GameManager {
         }
     }
 
+    public void setGameBoard(int rows, int cols, int target)
+    {
+        gameBoard = new GameBoard();
+        gameBoard.setGameBoard(rows, cols, target);
+    }
 
     public void setTurnIndex(int turnIndex) {
         this.turnIndex = turnIndex;
