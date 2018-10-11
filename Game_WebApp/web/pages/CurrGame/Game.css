@@ -183,18 +183,38 @@ td{
     height: 50px;
     width: 50px;
     margin: 1%;
+    background-image: url("/pages/../Images/arrow.jpg");
+    background-position: center;
+    background-size: 45px 45px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+
 }
 
 .arrowImg:hover {
-    background-color: lightcoral;
+    //background-color: lightcoral;
 }
 
 .popOut{
     height: 50px;
     width: 50px;
     margin: 1%;
+    background-image: url("/pages/../Images/removeDisk.png");
+    background-position: center;
+    background-size: 45px 45px;
+    cursor: pointer;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    overflow: hidden;
+    outline:none;
+
 }
 
 .popOut:hover {
-    background-color: lightgreen;
+    //background-color: lightgreen;
 }
