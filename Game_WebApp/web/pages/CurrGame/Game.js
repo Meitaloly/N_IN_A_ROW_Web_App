@@ -104,6 +104,7 @@ function drawGameBoard(gameBoard) {
 function insertDisc(){
     // only for check, each button get a number
     console.log("insert " + this.id);
+    /*
     $.ajax({
         type: 'POST',
         url: "/pages/CurrGame/Game/insert",
@@ -115,7 +116,7 @@ function insertDisc(){
         error: function(){
             // no roow at the column
         }
-    })
+    })*/
 }
 
 function popOutDisc(){

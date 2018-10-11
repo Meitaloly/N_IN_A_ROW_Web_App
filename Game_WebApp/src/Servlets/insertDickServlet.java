@@ -52,7 +52,7 @@ public class insertDickServlet extends HttpServlet {
         synchronized (this) {
             if (gameManager.getGameInListByName(userGameNameFromParameter).isActive()) {
                 int col = Integer.parseInt(insetCol);
-                gameInfo.setValue(col,);
+                //gameInfo.setValue(col,);
 
                 // username already exists, forward the request back to index.jsp
                 // with a parameter that indicates that an error should be displayed
