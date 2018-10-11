@@ -20,4 +20,13 @@ public class gameBoardInfo {
     public void setGameBoard(int[][] gameBoard) {
         this.gameBoard = gameBoard;
     }
+
+    public int getValue (int row,int col ){
+        return this.gameBoard[row][col];
+    }
+
+    public void setValue (int row,int col, int val ){
+        this.gameBoard[row][col] = val ;
+    }
+
 }
