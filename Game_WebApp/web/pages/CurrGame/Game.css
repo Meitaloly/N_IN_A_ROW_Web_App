@@ -111,6 +111,20 @@ td{
     border-radius: 10px;
 }
 
+.gameBoardArea {
+    flex:1;
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding:5px;
+    width: 100%;
+    border: #e2f8ff;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 10px;
+}
+
+
+
 .separator{
     border-left: 6px solid #e2f8ff;
     height: 100%;
@@ -118,3 +132,67 @@ td{
     left: 40%;
 }
 
+.red {
+    background-color: red;
+}
+.green {
+    background-color: green;
+}
+.blue {
+    background-color: blue;
+}
+.yellow {
+    background-color: yellow;
+}
+.purple {
+    background-color: purple;
+}
+.pink {
+    background-color: deeppink;
+}
+.gray {
+    background-color: gray;
+}
+.sphere {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 500%;
+    position: relative;
+    box-shadow: inset -20px -20px 100px white, 10px 10px 20px black, inset 0px 0px 10px black;
+    display: inline-block;
+    margin: 1%;
+}
+.sphere::after {
+    background-color: rgba(255, 255, 255, 0.3);
+    content: '';
+    height: 45%;
+    width: 12%;
+    position: absolute;
+    top: 4%;
+    left: 15%;
+    border-radius: 50%;
+    transform: rotate(40deg);
+}
+
+.arrowImg{
+    height: 50px;
+    width: 50px;
+    margin: 1%;
+}
+
+.arrowImg:hover {
+    background-color: lightcoral;
+}
+
+.popOut{
+    height: 50px;
+    width: 50px;
+    margin: 1%;
+}
+
+.popOut:hover {
+    background-color: lightgreen;
+}

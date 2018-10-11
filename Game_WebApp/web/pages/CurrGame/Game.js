@@ -61,16 +61,54 @@ function drawGameBoard(gameBoard) {
     console.log(gameBoard);
     var space =1;
     var rows = gameBoard.length;
+    console.log("rows" + rows);
     var cols = gameBoard[0].length;
-    for (var i = 0; i < rows; i++) {
+    console.log("cols" + cols);
+    for (var i = 0; i <= rows+1; i++) {
         var ch = "";
         for(var j=0; j<cols; j++) {
-            ch += "<td class = '"+"tr"+ i + "X" + j+ "'></td>";
-            space++;
-        }
+            //ch += "<td class = '"+"tr"+ i + "X" + j+ "'></td>";
+           // space++;
+                if(i===0) {
+                    var btn = document.createElement("BUTTON");
+                    btn.setAttribute("class","arrowImg");
+                    btn.setAttribute("id",j);
+                    btn.onclick = insertDisc;
 
-        $("#gameBoard").append("<tr>"+ch+"</tr>");
+                    //console.log(btn.id);
+                   // var btn = $("<button>").addClass("arrowImg").click( inputFunc ).setAttribute("id",j);
+                    //console.log(btn.id);
+                    $("#board").append(btn);
+                }
+                else if (i === rows+1 ){
+                    var btn = document.createElement("BUTTON");
+                    btn.setAttribute("class","popOut");
+                    btn.setAttribute("id",j);
+                    btn.onclick = popOutDisc;
+
+                    //console.log(btn.id);
+                    // var btn = $("<button>").addClass("arrowImg").click( inputFunc ).setAttribute("id",j);
+                    //console.log(btn.id);
+                    $("#board").append(btn);
+                }
+                else {
+                    var newBall = $("<div>").addClass("sphere");
+                    $("#board").append(newBall);
+                }
+        }
+        var newline = $("<br/>");
+        $("#board").append(newline);
     }
+}
+
+function insertDisc(){
+    // only for check, each button get a number
+    console.log("insert " + this.id);
+}
+
+function popOutDisc(){
+    // only for check, each button get a number
+    console.log("popOut "+this.id);
 }
 
 function refreshUsersList(users) {
