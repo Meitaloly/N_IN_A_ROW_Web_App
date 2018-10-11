@@ -25,8 +25,12 @@ public class gameBoardInfo {
         return this.gameBoard[row][col];
     }
 
-    public void setValue (int row,int col, int val ){
-        this.gameBoard[row][col] = val ;
+    public void setValue (int col, int val ){
+        for(int row = gameBoard.length-1; row>=0 ;row--){
+            if (gameBoard[row][col] ==  0 ){
+                gameBoard[row][col] = val ;
+            }
+        }
     }
 
 }

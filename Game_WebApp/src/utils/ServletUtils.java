@@ -1,6 +1,6 @@
 package utils;
 
-import GamesManager.GameManager;
+import GamesManager.*;
 import UserAuthentication.UserManager;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +9,7 @@ public class ServletUtils {
 
 	private static final String USER_MANAGER_ATTRIBUTE_NAME = "userManager";
 	private static final String GAME_MANAGER_ATTRIBUTE_NAME = "gameManager";
+	private static final String GAME_INFO_MANAGER_ATTRIBUTE_NAME = "gameManager";
 
 	/*
 	Note how the synchronization is done only on the question and\or creation of the relevant managers and once they exists -
@@ -16,6 +17,7 @@ public class ServletUtils {
 	 */
 	private static final Object userManagerLock = new Object();
 	private static final Object gameManagerLock = new Object();
+	private static final Object gameBoardInfoLock = new Object();
 
 	public static UserManager getUserManager(ServletContext servletContext) {
 
@@ -35,6 +37,16 @@ public class ServletUtils {
 			}
 		}
 		return (GameManager) servletContext.getAttribute(GAME_MANAGER_ATTRIBUTE_NAME);
+	}
+
+	public static gameBoardInfo getGameBoardInfo(ServletContext servletContext) {
+
+		synchronized (gameBoardInfoLock) {
+			if (servletContext.getAttribute(GAME_INFO_MANAGER_ATTRIBUTE_NAME) == null) {
+				servletContext.setAttribute(GAME_INFO_MANAGER_ATTRIBUTE_NAME, new GameManager());
+			}
+		}
+		return (gameBoardInfo) servletContext.getAttribute(GAME_INFO_MANAGER_ATTRIBUTE_NAME);
 	}
 
 //	public static ChatManager getChatManager(ServletContext servletContext) {

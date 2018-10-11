@@ -1,0 +1,113 @@
+package Servlets;
+
+import UserAuthentication.UserManager;
+import GamesManager.*;
+import constants.Constants;
+import utils.ServletUtils;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class insertDickServlet extends HttpServlet {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        gameBoardInfo gameInfo = ServletUtils.getGameBoardInfo(getServletContext());
+        GameManager gameManager = ServletUtils.getGameManager(getServletContext());
+        //user is not logged in yet
+        String usernameFromParameter = request.getParameter("username");
+        String insetCol = request.getParameter("col");
+        String userGameNameFromParameter = request.getParameter("gameName");
+        //normalize the username value
+        usernameFromParameter = usernameFromParameter.trim();
+        userGameNameFromParameter = userGameNameFromParameter.trim();
+        insetCol = insetCol.trim();
+
+
+        /*
+        One can ask why not enclose all the synchronizations inside the userManager object ?
+        Well, the atomic question we need to perform here includes both the question (isUserExists) and (potentially) the insertion
+        of the new user (addUser). These two actions needs to be considered atomic, and synchronizing only each one of them solely is not enough.
+        (off course there are other more sophisticated and performable means for that (atomic objects etc) but these are not in our scope)
+
+        The synchronized is on this instance (the servlet).
+        As the servlet is singleton - it is promised that all threads will be synchronized on the same instance (crucial here)
+
+        A better code would be to perform only as little and as nessessary things we need here inside the synchronized block and avoid
+        do here other not related actions (such as request dispatcher\redirection etc. this is shown here in that manner just to stress this issue
+         */
+
+        synchronized (this) {
+            if (gameManager.getGameInListByName(userGameNameFromParameter).isActive()) {
+                int col = Integer.parseInt(insetCol);
+                gameInfo.setValue(col,);
+
+                // username already exists, forward the request back to index.jsp
+                // with a parameter that indicates that an error should be displayed
+                // the request dispatcher obtained from the servlet context is one that MUST get an absolute path (starting with'/')
+                // and is relative to the web app root
+                // see this link for more details:
+                // http://timjansen.github.io/jarfiller/guide/servlet25/requestdispatcher.xhtml
+                //request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
+                //getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
+                //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The username is already exist!");
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+        }
+        final PrintWriter out = response.getWriter();
+        out.write("OK");
+        out.close();
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}

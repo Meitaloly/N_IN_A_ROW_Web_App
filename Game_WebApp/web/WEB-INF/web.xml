@@ -48,9 +48,17 @@
         <servlet-name>isActiveGameServlet</servlet-name>
         <servlet-class>Servlets.isActiveGameServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>insertDickServlet</servlet-name>
+        <servlet-class>Servlets.insertDickServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>insertDickServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/isActiveGame</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>isActiveGameServlet</servlet-name>
-        <url-pattern>/pages/CurrGame/Game/isActiveGame</url-pattern>
+        <url-pattern>/pages/CurrGame/Game/insert</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutFromCurrGameServlet</servlet-name>
