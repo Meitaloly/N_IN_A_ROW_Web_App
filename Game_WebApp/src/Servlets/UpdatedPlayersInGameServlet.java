@@ -2,17 +2,21 @@ package Servlets;
 
 import GamesManager.GameInList;
 import GamesManager.GameManager;
+import UserAuthentication.User;
+import UserAuthentication.UserManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 public class UpdatedPlayersInGameServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = utils.ServletUtils.getGameManager(getServletContext());
+        UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
         String gameName = request.getParameter("gameName");
         String action = request.getParameter("action");
         GameInList currGame = gameManager.getGameInListByName(gameName);
@@ -22,6 +26,8 @@ public class UpdatedPlayersInGameServlet extends HttpServlet {
             currGame.incNumOfSignedPlayers();
             if(currGame.isActive())
             {
+                Map<String, User> players = userManager.getUsersOfCurrGame(gameName);
+                currGame.addPlayersWithColors(players);
                 response.setStatus(HttpServletResponse.SC_OK);
                 out = response.getWriter();
                 out.print("success");

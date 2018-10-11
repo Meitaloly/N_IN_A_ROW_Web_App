@@ -51,11 +51,29 @@ function isActiveGame()
                 if(res.isActive)
                 {
                     drawGameBoard(res.gameBoard);
+                    updateGameInfo(CurrGameName);
                 }
             }
         }
     });
 }
+
+function updateGameInfo(gameName)
+{
+    var id = gameName.replace(/\s/g,"-") +"-info";
+    $.ajax({
+        type: 'GET',
+        url: GAME_INFO_URL,
+        data:{"gameName": gameName},
+        success: function (game) {
+            {
+                $('.status').text("game started!");
+                $('.playerName').text(game.playerTurn);
+            }
+        }
+    });
+}
+
 
 function drawGameBoard(gameBoard) {
     console.log(gameBoard);
@@ -104,6 +122,12 @@ function drawGameBoard(gameBoard) {
 function insertDisc(){
     // only for check, each button get a number
     console.log("insert " + this.id);
+    checkHumanTurnAndInsert();
+
+}
+
+function checkHumanTurnAndInsert()
+{
 
 }
 
@@ -149,16 +173,21 @@ function getGameInfoByGameName()
 
 function showGameInfoOnScreen(game)
 {
-    var template = $("#GameInfo-template").clone().html(function(i,html) {
-        return html
-            .replace('{{gameName}}', game.gameName)
-            .replace('{{variant}}',game.variant)
-            .replace('{{status}}', "game hasn't start yet!")
-            .replace('{{target}}', game.target)
-            .replace('{{playerName}}', "none");
-    });
-    template.attr('id', game.gameName.replace(/\s/g,"-")+"-info");
-    $(template).appendTo("#game_info").show();
+    $('.gameName').text(game.gameName);
+    $('.variant').text(game.variant);
+    $('.status').text("game hasn't start yet!");
+    $('.target').text(game.target);
+    $('.playerName').text("none");
+    // var template = $("#GameInfo-template").clone().html(function(i,html) {
+    //     return html
+    //         .replace('{{gameName}}', game.gameName)
+    //         .replace('{{variant}}',game.variant)
+    //         .replace('{{status}}', "game hasn't start yet!")
+    //         .replace('{{target}}', game.target)
+    //         .replace('{{playerName}}', "none");
+    // });
+    // template.attr('id', game.gameName.replace(/\s/g,"-")+"-info");
+    // $(template).appendTo("#game_info").show();
 }
 
 function logOutFromGame() {

@@ -1,7 +1,7 @@
 package GameLogic;
 
 import GameLogic.generatedClasses.GameDescriptor;
-import GameLogic.generatedClasses.Player;
+import UserAuthentication.User;
 
 import java.util.*;
 
@@ -9,19 +9,45 @@ public class GameManager {
 
     private GameBoard gameBoard;
     //private GameDescriptor desc;
-    private Map<Integer, GameLogic.Player> playersInMap;
+    //private Map<Integer, GameLogic.Player> playersInMap;
     private ArrayList<GameLogic.Player> playersByOrder;
     private String variant;
     private boolean activeGame = false;
     private int turnIndex = 0;
-    private GameHistory history;
+    //private GameHistory history;
+
 
     public void incTurnIndex() {
         turnIndex++;
-        if (playersInMap.size() <= turnIndex) {
+        if (playersByOrder.size() <= turnIndex) {
             turnIndex = 0;
         }
     }
+
+    public void setVariant(String variant) {
+        this.variant = variant;
+    }
+
+    public void setPlayers(Map<String, User> players)
+    {
+        playersByOrder = new ArrayList<>();
+        int id =0;
+        for(User player : players.values())
+        {
+            Player currPlayer  = new Player();
+            currPlayer.setId(id);
+            currPlayer.setName(player.getUserName());
+            currPlayer.setTurnCounter(0);
+            currPlayer.setPlayerType(player.getType());
+            currPlayer.setPlayerColor(setDickColor(id));
+            currPlayer.setPlayerSign(id);
+            currPlayer.setActive();
+            playersByOrder.add(currPlayer);
+            id++;
+        }
+    }
+
+
 
     public void setGameBoard(int rows, int cols, int target)
     {
@@ -221,13 +247,13 @@ public class GameManager {
         return gameBoard.isColFull(col);
     }
 
-    public void setColorosToPlayers() {
-        int size = playersInMap.size();
-        for (int i = 0; i < size; i++) {
-            playersByOrder.get(i).setPlayerColor(setDickColor(i));
-            playersByOrder.get(i).setPlayerSign(i);
-        }
-    }
+//    public void setColorosToPlayers() {
+//        int size = playersInMap.size();
+//        for (int i = 0; i < size; i++) {
+//            playersByOrder.get(i).setPlayerColor(setDickColor(i));
+//            playersByOrder.get(i).setPlayerSign(i);
+//        }
+//    }
 
     private String setDickColor(int index) {
         switch (index) {
@@ -253,22 +279,22 @@ public class GameManager {
     }
 
     public int getNumOfPlayers() {
-        return playersInMap.size();
+        return playersByOrder.size();
     }
 
     public int getPlayerId(int i) {
-        return playersInMap.get(i).getId();
+        return playersByOrder.get(i).getId();
     }
 
     public String getPlayerName(int i) {
-        return playersInMap.get(i).getName();
+        return playersByOrder.get(i).getName();
     }
 
     public int getPlayerNumOfTurns(int i) {
-        return playersInMap.get(i).getTurnCounter();
+        return playersByOrder.get(i).getTurnCounter();
     }
 
     public String getPlayerType(int i) {
-        return playersInMap.get(i).getPlayerType();
+        return playersByOrder.get(i).getPlayerType();
     }
 }

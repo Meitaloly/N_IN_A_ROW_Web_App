@@ -31,6 +31,11 @@
                     <div class = "gameInfoTitle">Game info</div>
                     </br>
                     <div id = "game_info">
+                            <div>Game's name: <span class="gameName"></span></div>
+                            <div>Variant: <span class="variant"></span></div>
+                            <div>Game status: <span class="status"></span></div>
+                            <div>Target:<span class="target"></span></div>
+                            <div>Player turn: <span class="playerName">{{playerName}}</span></div>
                     </div>
                 </div>
             </div>
@@ -39,17 +44,7 @@
             <div class="game_board_container">
                 <div class = "gameBoardTitle">Game board</div>
                     <div class = "gameBoardArea">
-                        <!--button onclick="myFunction()"--><!--img src="/Images/arrow.jpg"--><!--/button-->
-                        <!--img class = "arrowImg" src="/Images/arrow.jpg" type="submit" -->
-                    <div id="board" style="overflow-y:auto; overflow-x:auto; height:100%; width:100%"></div>
-                        <!--div class="sphere red"></div-->
-                        <!--div class="sphere green"></div-->
-                        <!--div class="sphere blue"></div-->
-                        <!--div class="sphere yellow"></div-->
-                        <!--div class="sphere"></div-->
-                        <!--table style="width:100%" id="gameBoard">
-
-                        </table-->
+                    <div id="board" style="overflow-y:auto; overflow-x:auto; height:600px; width:600px"></div>
                     </div>
                 <br />
             </div>
@@ -60,11 +55,11 @@
 <script src="./Game.js"></script>
 
 
-<div class= "gameInfoTemp" id="GameInfo-template" style = "display: none">
-    <div>Game's name: {{gameName}}</div>
-    <div>Variant: {{variant}} </div>
-    <div>Game status: {{status}}</div>
-    <div>Target: {{target}}</div>
-    <div>Player turn:  {{playerName}}</div>
-</div>
+<!--<div class= "gameInfoTemp" id="GameInfo-template" style = "display: none">-->
+    <!--<div>Game's name: {{gameName}}</div>-->
+    <!--<div>Variant: {{variant}} </div>-->
+    <!--<div>Game status: <span class="status">{{status}}</span></div>-->
+    <!--<div>Target: {{target}}</div>-->
+    <!--<div>Player turn: <span class="playerName">{{playerName}}</span></div>-->
+<!--</div>-->
 </html>

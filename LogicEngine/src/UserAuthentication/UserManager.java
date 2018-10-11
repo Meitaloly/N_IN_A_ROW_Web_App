@@ -19,6 +19,20 @@ public class UserManager {
         users.put(username, userToAdd);
     }
 
+    public Map<String,User> getUsersOfCurrGame(String gameName)
+    {
+        Map<String, User> res = new HashMap<>();
+        for(User user : users.values())
+        {
+            if(user.getGame().equals(gameName))
+            {
+                res.put(user.getUserName(),user);
+            }
+        }
+
+        return res;
+    }
+
     public synchronized void removeUser(String username) {
         users.remove(username);
     }

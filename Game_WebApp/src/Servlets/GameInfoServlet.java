@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class GameInfoServlet extends HttpServlet {
-    protected void processRequestPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = ServletUtils.getGameManager(getServletContext());
         String gameName = request.getParameter("gameName");
         GameInList currGame = gameManager.getGameInListByName(gameName);
@@ -21,10 +21,10 @@ public class GameInfoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
     }
-
-    protected void processRequestGet(HttpServletRequest request, HttpServletResponse response) {
-
-    }
+//
+//    protected void processRequestGet(HttpServletRequest request, HttpServletResponse response) {
+//
+//    }
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -39,7 +39,7 @@ public class GameInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequestGet(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -53,7 +53,7 @@ public class GameInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequestPost(request, response);
+        processRequest(request, response);
     }
 
     /**

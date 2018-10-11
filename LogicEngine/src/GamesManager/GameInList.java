@@ -1,6 +1,9 @@
 package GamesManager;
 
 import GameLogic.GameManager;
+import UserAuthentication.User;
+
+import java.util.Map;
 
 public class GameInList {
     private String userOwner;
@@ -13,6 +16,7 @@ public class GameInList {
     private int currNumOfPlayersInGame = 0;
     private String status = "Not active";
     private GameManager currGameManager;
+    private String playerTurn ="";
 
     public GameInList(String xmlContext)
     {
@@ -23,6 +27,20 @@ public class GameInList {
         variant = getValueFromSplitString(xmlContext,"<Variant>","</Variant>");
         gameName = getValueFromSplitString(xmlContext,"game-title=\"", "\"");
         numOfPlayersRequired = Integer.parseInt(getValueFromSplitString(xmlContext,"total-players=\"","\""));
+    }
+
+    public String getPlayerTurn() {
+        return  playerTurn;
+    }
+
+    public void addPlayersWithColors(Map<String, User> players)
+    {
+        currGameManager.setPlayers(players);
+    }
+
+    public int getTurnIndex()
+    {
+        return currGameManager.getTurnIndex();
     }
 
     public GameManager getCurrGameManager() {
@@ -82,7 +100,8 @@ public class GameInList {
         currGameManager.setActiveGame(true);
         currGameManager.setTurnIndex(0);
         currGameManager.setGameBoard(rows,cols,target);
-//        currGameManager.setColorosToPlayers();
+        currGameManager.setVariant(variant);
+
     }
 
     public boolean isActive()

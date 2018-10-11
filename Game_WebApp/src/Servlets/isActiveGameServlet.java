@@ -3,6 +3,8 @@ package Servlets;
 import GamesManager.GameInList;
 import GamesManager.GameManager;
 import GamesManager.gameBoardInfo;
+import UserAuthentication.User;
+import UserAuthentication.UserManager;
 import com.google.gson.Gson;
 import utils.ServletUtils;
 
@@ -11,12 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class isActiveGameServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         GameManager gameManager = ServletUtils.getGameManager(request.getServletContext());
+        UserManager userManager = ServletUtils.getUserManager(request.getServletContext());
         String gameName = request.getParameter("gameName");
         GameInList game = gameManager.getGameInListByName(gameName);
         boolean active = game.isActive();

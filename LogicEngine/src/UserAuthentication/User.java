@@ -12,6 +12,10 @@ public class User {
         game = null;
     }
 
+    public String getGame() {
+        return game;
+    }
+
     public String getType() {
         return type;
     }
