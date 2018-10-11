@@ -39,15 +39,6 @@ public class ServletUtils {
 		return (GameManager) servletContext.getAttribute(GAME_MANAGER_ATTRIBUTE_NAME);
 	}
 
-	public static gameBoardInfo getGameBoardInfo(ServletContext servletContext) {
-
-		synchronized (gameBoardInfoLock) {
-			if (servletContext.getAttribute(GAME_INFO_MANAGER_ATTRIBUTE_NAME) == null) {
-				servletContext.setAttribute(GAME_INFO_MANAGER_ATTRIBUTE_NAME, new GameManager());
-			}
-		}
-		return (gameBoardInfo) servletContext.getAttribute(GAME_INFO_MANAGER_ATTRIBUTE_NAME);
-	}
 
 //	public static ChatManager getChatManager(ServletContext servletContext) {
 //		synchronized (chatManagerLock) {
