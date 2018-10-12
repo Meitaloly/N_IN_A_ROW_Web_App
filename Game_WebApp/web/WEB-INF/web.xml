@@ -41,13 +41,37 @@
         <servlet-class>Servlets.updateUserGameServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GameBoardServlet</servlet-name>
+        <servlet-class>Servlets.GameBoardServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogoutFromCurrGameServlet</servlet-name>
         <servlet-class>Servlets.LogoutFromCurrGameServlet</servlet-class>
+    </servlet>
+	<servlet>
+        <servlet-name>InsertDiskServlet</servlet-name>
+        <servlet-class>Servlets.InserDiskServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>isActiveGameServlet</servlet-name>
         <servlet-class>Servlets.isActiveGameServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PopOutDiskServlet</servlet-name>
+        <servlet-class>Servlets.PopOutDiskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PopOutDiskServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/popOutDisk</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertDiskServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/insertDisk</url-pattern>
+    </servlet-mapping>
+<servlet-mapping>
+    <servlet-name>GameBoardServlet</servlet-name>
+    <url-pattern>/pages/CurrGame/Game/GameBoard</url-pattern>
+</servlet-mapping>
     <servlet-mapping>
         <servlet-name>isActiveGameServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/isActiveGame</url-pattern>

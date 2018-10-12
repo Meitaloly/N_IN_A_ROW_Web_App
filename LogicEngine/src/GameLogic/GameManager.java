@@ -24,6 +24,11 @@ public class GameManager {
         }
     }
 
+    public String getCurrPlayerName()
+    {
+        return playersByOrder.get(turnIndex).getName();
+    }
+
     public void setVariant(String variant) {
         this.variant = variant;
     }
@@ -48,6 +53,38 @@ public class GameManager {
         }
     }
 
+    public boolean checkIfHumanAndInsert(int col)
+    {
+        boolean res = false;
+        if(playersByOrder.get(turnIndex).getPlayerType().toLowerCase().equals("human"))
+        {
+            if(!checkColFullInBoard(col))
+            {
+                gameBoard.setSignOnBoard(col,playersByOrder.get(turnIndex));
+                incCurrPlayerTurn();
+                gameBoard.checkPlayerWin(col,variant);
+                incTurnIndex();
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    public boolean checkIfHumanAndPopout(int col)
+    {
+        boolean res = false;
+        if(playersByOrder.get(turnIndex).getPlayerType().toLowerCase().equals("human"))
+        {
+            if (gameBoard.checkSignAndRemove(col, playersByOrder.get(turnIndex).getPlayerSign()))
+            {
+                incCurrPlayerTurn();
+                gameBoard.checkPlayerWin(col,variant);
+                incTurnIndex();
+                res = true;
+            }
+        }
+        return res;
+    }
 
     public void setGameBoard(int rows, int cols, int target)
     {

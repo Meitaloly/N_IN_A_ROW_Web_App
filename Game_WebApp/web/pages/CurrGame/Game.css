@@ -169,7 +169,7 @@ td{
     vertical-align: middle;
     font-size: 500%;
     position: relative;
-    box-shadow: inset -20px -20px 100px white, 10px 10px 20px black, inset 0px 0px 10px black;
+    box-shadow: 10px 10px 20px black, inset 0px 0px 10px black;
     display: inline-block;
     margin: 1%;
 }

@@ -2,6 +2,10 @@ var refreshRate = 1000; //mili seconds
 var PLAYER_LIST_URL = "/pages/CurrGame/Game/userlist";
 var GAME_INFO_URL = "/pages/CurrGame/Game/GameInfo";
 var ACTIVE_GAME_URL = "/pages/CurrGame/Game/isActiveGame";
+var INSERT_DISK = "/pages/CurrGame/Game/insertDisk";
+var GAME_BOARD_URL = "/pages/CurrGame/Game/GameBoard";
+var POPOUT_DISK = "/pages/CurrGame/Game/popOutDisk";
+
 var loggedUser;
 var CurrGameName;
 var gameBoard;
@@ -28,6 +32,20 @@ $(function() {
 
 })
 
+
+function updateGameBoardAjax()
+{
+    $.ajax({
+        type: 'GET',
+        url: GAME_BOARD_URL,
+        data: {"gameName": CurrGameName},
+        success: function (newGameBoard) {
+            if (JSON.stringify(newGameBoard) !== JSON.stringify(gameBoard)) {
+                updateGameBoard(newGameBoard);
+            }
+        }
+    });
+}
 function ajaxUsersList() {
     $.ajax({
         type: 'GET',
@@ -57,6 +75,7 @@ function isActiveGame()
                     if (res.isActive) {
                         drawGameBoard(res.gameBoard);
                         updateGameInfo(CurrGameName);
+                        setInterval(updateGameBoardAjax,refreshRate);
                     }
                 }
             }
@@ -73,7 +92,6 @@ function updateGameInfo(gameName)
         success: function (game) {
             {
                 $('.status').text("game started!");
-                //$('.playerName').text(game.playerTurn);
             }
         }
     });
@@ -82,25 +100,17 @@ function updateGameInfo(gameName)
 
 function drawGameBoard(gameBoard) {
     console.log(gameBoard);
-    var space =1;
     var rows = gameBoard.length;
     console.log("rows" + rows);
     var cols = gameBoard[0].length;
     console.log("cols" + cols);
     for (var i = 0; i <= rows+1; i++) {
-        var ch = "";
         for(var j=0; j<cols; j++) {
-            //ch += "<td class = '"+"tr"+ i + "X" + j+ "'></td>";
-           // space++;
                 if(i===0) {
                     var btn = document.createElement("BUTTON");
                     btn.setAttribute("class","arrowImg");
                     btn.setAttribute("id",j);
                     btn.onclick = insertDisc;
-
-                    //console.log(btn.id);
-                   // var btn = $("<button>").addClass("arrowImg").click( inputFunc ).setAttribute("id",j);
-                    //console.log(btn.id);
                     $("#board").append(btn);
                 }
                 else if (i === rows+1 ){
@@ -108,14 +118,14 @@ function drawGameBoard(gameBoard) {
                     btn.setAttribute("class","popOut");
                     btn.setAttribute("id",j);
                     btn.onclick = popOutDisc;
-
-                    //console.log(btn.id);
-                    // var btn = $("<button>").addClass("arrowImg").click( inputFunc ).setAttribute("id",j);
-                    //console.log(btn.id);
                     $("#board").append(btn);
                 }
                 else {
-                    var newBall = $("<div>").addClass("sphere");
+                    var currId = (i-1)+"X"+j;
+                    var newBall = $('<div/>', {
+                        id: currId,
+                        class: 'sphere',
+                    });
                     $("#board").append(newBall);
                 }
         }
@@ -127,18 +137,68 @@ function drawGameBoard(gameBoard) {
 function insertDisc(){
     // only for check, each button get a number
     console.log("insert " + this.id);
-    checkHumanTurnAndInsert();
-
+    $.ajax({
+        type: 'GET',
+        url: INSERT_DISK,
+        data: {"gameName": CurrGameName , "playerName": loggedUser, "col":this.id},
+    });
 }
 
-function checkHumanTurnAndInsert()
+function updateGameBoard(gameBoard)
 {
-
+    for(var i =0 ; i<gameBoard.length; i++)
+    {
+        for(var j =0 ; j<gameBoard[i].length ; j++) {
+            setColorOnCell(gameBoard[i][j], i, j);
+        }
+    }
 }
+
+function setColorOnCell(value, row, col )
+{
+    var cellId = row+"X"+col;
+    var color;
+
+    switch(value) {
+        case 0:
+            color = "green";
+            break;
+        case 1:
+            color = "blue";
+            break;
+        case 2:
+            color = "red";
+            break;
+        case 3:
+            color = "yellow";
+            break;
+        case 4:
+            color = "pink";
+            break;
+        case 5:
+            color = "aqua";
+            break;
+        default:
+            color = "noColor";
+            break;
+    }
+
+    $("#"+cellId).removeClass();
+    $("#"+cellId).addClass("sphere");
+    if(color !== "noColor") {
+        $("#" + cellId).addClass(color);
+    }
+}
+
 
 function popOutDisc(){
     // only for check, each button get a number
     console.log("popOut "+this.id);
+    $.ajax({
+        type: 'GET',
+        url: POPOUT_DISK,
+        data: {"gameName": CurrGameName , "playerName": loggedUser, "col":this.id},
+    });
 }
 
 function refreshUsersList(users) {
@@ -157,8 +217,6 @@ function refreshUsersList(users) {
         }
     });
 }
-
-
 
 function getGameInfoByGameName()
 {

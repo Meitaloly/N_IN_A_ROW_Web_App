@@ -25,6 +25,39 @@ public class GameInList {
             currGameManager.printArray();
         }
     }
+
+    public int[][] popOutDisk(String playerName, int col)
+    {
+        if(playerName.equals(playerTurn))
+        {
+            if(currGameManager.checkIfHumanAndPopout(col))
+            {
+                setCurrPlayerNameTurn();
+            }
+        }
+
+        return currGameManager.getGameBoard().getBoard();
+    }
+
+
+    public int[][] insertDisk(String playerName, int col)
+    {
+        if(playerName.equals(playerTurn))
+        {
+            if(currGameManager.checkIfHumanAndInsert(col))
+            {
+                setCurrPlayerNameTurn();
+            }
+        }
+        return currGameManager.getGameBoard().getBoard();
+    }
+
+
+    public void setCurrPlayerNameTurn()
+    {
+        playerTurn = currGameManager.getCurrPlayerName();
+    }
+
     public void setPlayers (Map<String, User> players){currGameManager.setPlayers(players);}
 
     public boolean isArrayByOrder(){

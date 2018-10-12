@@ -23,7 +23,7 @@ public class GameBoard {
 
     public boolean isColFull(int col) {
         boolean res = false;
-        if (board[0][col-1] != -1) {
+        if (board[0][col] != -1) {
             res = true;
         }
         return res;
@@ -76,6 +76,7 @@ public class GameBoard {
         }
         return res;
     }
+
     public void setEmptyBoard()
     {
         board = new int[Math.toIntExact(rows)][Math.toIntExact(cols)];
@@ -175,24 +176,21 @@ public class GameBoard {
         return res;
     }
 
-    public boolean checkPlayerWin(int col, String gameType, String playerType)
+    public boolean checkPlayerWin(int col, String gameType)
     {
-//        if(playerType.toUpperCase().equals("COMPUTER"))
-//        {
-//            col--;
-//        }
         boolean res = false;
         int i = 0 ;
 
-        while (board[i][col-1] == -1){
-            i++;
-        }
-        if(gameType.toUpperCase().equals("CIRCULAR")) {
-            res = isDiagonal(i, col - 1) || isHorizontalCircular(i, col - 1) || isVerticalCircular(i, col - 1);
-        }
-        else
-        {
-            res = isDiagonal(i, col - 1) || isHorizontal(i, col - 1) || isVertical(i, col - 1);
+        if(!checkColEmpty(col)) {
+            while (i < rows && board[i][col] == -1) {
+                i++;
+            }
+
+            if (gameType.toUpperCase().equals("CIRCULAR")) {
+                res = isDiagonal(i, col) || isHorizontalCircular(i, col) || isVerticalCircular(i, col);
+            } else {
+                res = isDiagonal(i, col) || isHorizontal(i, col) || isVertical(i, col);
+            }
         }
         return res;
     }
