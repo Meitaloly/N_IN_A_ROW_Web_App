@@ -14,8 +14,8 @@ public class GameManager {
     private String variant;
     private boolean activeGame = false;
     private int turnIndex = 0;
-    //private GameHistory history;
 
+    //private GameHistory history;
 
     public void incTurnIndex() {
         turnIndex++;
@@ -30,8 +30,9 @@ public class GameManager {
 
     public void setPlayers(Map<String, User> players)
     {
+
         playersByOrder = new ArrayList<>();
-        int id =0;
+        int id = 0;
         for(User player : players.values())
         {
             Player currPlayer  = new Player();
@@ -46,7 +47,6 @@ public class GameManager {
             id++;
         }
     }
-
 
 
     public void setGameBoard(int rows, int cols, int target)
@@ -212,6 +212,16 @@ public class GameManager {
         return winner;
     }
 
+    public void printArray(){
+        for(GameLogic.Player player : playersByOrder)
+        {
+            System.out.println(player.getName());
+            System.out.println(player.getPlayerType());
+            System.out.println(player.getId());
+            System.out.println(player.getPlayerColor());
+        }
+    }
+
 //    public boolean buildPlayersFromFile() {
 //        boolean res = true;
 //        playersInMap = new HashMap<>();
@@ -273,7 +283,7 @@ public class GameManager {
                 return "pink";
 
             case 5:
-                return "azure";
+                return "aqua";
         }
         return "noColor";
     }

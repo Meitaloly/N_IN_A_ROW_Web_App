@@ -1,9 +1,13 @@
 package GamesManager;
 
+import UserAuthentication.User;
+
 import java.util.*;
 
 public class GameManager {
     private Map<String, GameInList> gamesList;
+
+    public void setPlayers(String gName, Map<String, User> players){gamesList.get(gName).setPlayers(players);}
 
     public GameManager() {
         gamesList = new HashMap<>();

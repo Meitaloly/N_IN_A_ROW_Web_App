@@ -29,7 +29,6 @@ public class UserManager {
                 res.put(user.getUserName(),user);
             }
         }
-
         return res;
     }
 

@@ -16,7 +16,6 @@ public class UpdatedPlayersInGameServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = utils.ServletUtils.getGameManager(getServletContext());
-        UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
         String gameName = request.getParameter("gameName");
         String action = request.getParameter("action");
         GameInList currGame = gameManager.getGameInListByName(gameName);
@@ -26,7 +25,10 @@ public class UpdatedPlayersInGameServlet extends HttpServlet {
             currGame.incNumOfSignedPlayers();
             if(currGame.isActive())
             {
+
+                UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
                 Map<String, User> players = userManager.getUsersOfCurrGame(gameName);
+                System.out.println("create array in UpdatedPlayersInGameServlet ");
                 currGame.addPlayersWithColors(players);
                 response.setStatus(HttpServletResponse.SC_OK);
                 out = response.getWriter();

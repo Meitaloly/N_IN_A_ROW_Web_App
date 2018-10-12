@@ -2,6 +2,8 @@ package Servlets;
 
 import GamesManager.GameInList;
 import GamesManager.GameManager;
+import UserAuthentication.User;
+import UserAuthentication.UserManager;
 import com.google.gson.Gson;
 import utils.ServletUtils;
 
@@ -10,12 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class GameInfoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = ServletUtils.getGameManager(getServletContext());
         String gameName = request.getParameter("gameName");
         GameInList currGame = gameManager.getGameInListByName(gameName);
+            if(currGame.isActive() && !currGame.isArrayByOrder())
+            {
+                UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
+                Map<String, User> players = userManager.getUsersOfCurrGame(gameName);
+                System.out.println("create array in GameInfoServlet");
+                currGame.addPlayersWithColors(players);
+            }
         String json = new Gson().toJson(currGame);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

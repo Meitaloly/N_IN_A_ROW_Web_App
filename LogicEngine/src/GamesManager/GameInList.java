@@ -17,6 +17,19 @@ public class GameInList {
     private String status = "Not active";
     private GameManager currGameManager;
     private String playerTurn ="";
+    private boolean isCreate= false;
+
+
+    public void printPlayers(){
+        if (isCreate) {
+            currGameManager.printArray();
+        }
+    }
+    public void setPlayers (Map<String, User> players){currGameManager.setPlayers(players);}
+
+    public boolean isArrayByOrder(){
+        return (isCreate);
+    }
 
     public GameInList(String xmlContext)
     {
@@ -35,13 +48,11 @@ public class GameInList {
 
     public void addPlayersWithColors(Map<String, User> players)
     {
+        isCreate = true;
         currGameManager.setPlayers(players);
+        setNextPlayerName();
     }
 
-    public int getTurnIndex()
-    {
-        return currGameManager.getTurnIndex();
-    }
 
     public GameManager getCurrGameManager() {
         return currGameManager;
@@ -122,6 +133,10 @@ public class GameInList {
             status = "Active";
             activeGame();
         }
+    }
+
+    public void setNextPlayerName(){
+        playerTurn = currGameManager.getPlayerName(currGameManager.getTurnIndex());
     }
 
 }

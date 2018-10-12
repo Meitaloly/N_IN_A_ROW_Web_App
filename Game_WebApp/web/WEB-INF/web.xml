@@ -71,6 +71,7 @@
     <servlet-mapping>
         <servlet-name>GameInfoServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/GameInfo</url-pattern>
+        <url-pattern>/pages/CurrGame/Game/nextPlayer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewGameServlet</servlet-name>

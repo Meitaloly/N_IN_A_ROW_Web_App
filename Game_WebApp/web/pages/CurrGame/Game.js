@@ -8,10 +8,13 @@ var gameBoard;
 var isActive = false;
 var gameUsers = [];
 
+
 $(function() {
     setInterval(ajaxUsersList, refreshRate);
     setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
+    setInterval(getNextTurnInfoByGameName, refreshRate);
+
     $(function(){
         $.ajax({
             type: 'GET',
@@ -29,33 +32,35 @@ function ajaxUsersList() {
     $.ajax({
         type: 'GET',
         url: PLAYER_LIST_URL,
+
         success: function (users) {
             if(JSON.stringify(users)!== JSON.stringify(gameUsers)) {
                 gameUsers = users;
                 refreshUsersList(gameUsers);
             }
         }
+
     });
+    console.log("users servlet");
 }
 
 function isActiveGame()
 {
-    $.ajax({
-        type: 'GET',
-        url: ACTIVE_GAME_URL,
-        data:{"gameName": CurrGameName},
-        success: function (res) {
-            if(JSON.stringify(res.isActive)!== JSON.stringify(isActive))
-            {
-                isActive = res.isActive;
-                if(res.isActive)
-                {
-                    drawGameBoard(res.gameBoard);
-                    updateGameInfo(CurrGameName);
+    console.log("isActiveGame servlet");
+        $.ajax({
+            type: 'GET',
+            url: ACTIVE_GAME_URL,
+            data: {"gameName": CurrGameName},
+            success: function (res) {
+                if (JSON.stringify(res.isActive) !== JSON.stringify(isActive)) {
+                    isActive = res.isActive;
+                    if (res.isActive) {
+                        drawGameBoard(res.gameBoard);
+                        updateGameInfo(CurrGameName);
+                    }
                 }
             }
-        }
-    });
+        });
 }
 
 function updateGameInfo(gameName)
@@ -68,7 +73,7 @@ function updateGameInfo(gameName)
         success: function (game) {
             {
                 $('.status').text("game started!");
-                $('.playerName').text(game.playerTurn);
+                //$('.playerName').text(game.playerTurn);
             }
         }
     });
@@ -173,11 +178,13 @@ function getGameInfoByGameName()
 
 function showGameInfoOnScreen(game)
 {
+    console.log("show game Info servlet")
     $('.gameName').text(game.gameName);
     $('.variant').text(game.variant);
     $('.status').text("game hasn't start yet!");
     $('.target').text(game.target);
-    $('.playerName').text("none");
+    $('.playerName').text(game.playerTurn);
+    console.log("now play : " + game.playerTurn)
     // var template = $("#GameInfo-template").clone().html(function(i,html) {
     //     return html
     //         .replace('{{gameName}}', game.gameName)
@@ -188,6 +195,29 @@ function showGameInfoOnScreen(game)
     // });
     // template.attr('id', game.gameName.replace(/\s/g,"-")+"-info");
     // $(template).appendTo("#game_info").show();
+}
+
+function getNextTurnInfoByGameName()
+{
+    var urlArr = window.location.href.split("?");
+    var nameArr = urlArr[1].split("=");
+    CurrGameName = nameArr[1].replace("-"," ");
+
+    console.log("next player Info servlet")
+    $.ajax({
+        type: 'POST',
+        data: {"gameName" : CurrGameName},
+        url: "/pages/CurrGame/Game/nextPlayer",
+        success: function (game) {
+            showNextTurnInfoOnScreen(game);
+        }
+    });
+}
+
+function showNextTurnInfoOnScreen(game)
+{
+    $('.playerName').text(game.playerTurn);
+
 }
 
 function logOutFromGame() {

@@ -1,8 +1,16 @@
 package GamesManager;
 
+import GameLogic.GameManager;
+import GameLogic.Player;
+import UserAuthentication.User;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 public class gameBoardInfo {
     private boolean isActive;
     private int[][] gameBoard;
+
 
     public int[][] getGameBoard() {
         return gameBoard;
