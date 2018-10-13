@@ -64,6 +64,22 @@
         <servlet-name>countCompPlayersServlet</servlet-name>
         <servlet-class>Servlets.countCompPlayersServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResetGameServlet</servlet-name>
+        <servlet-class>Servlets.ResetGameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActivePlayersServlet</servlet-name>
+        <servlet-class>Servlets.ActivePlayersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivePlayersServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/activePlayers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetGameServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/resetGame</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>countCompPlayersServlet</servlet-name>
         <url-pattern>/pages/GameLobby/Lobby/compPlayer</url-pattern>

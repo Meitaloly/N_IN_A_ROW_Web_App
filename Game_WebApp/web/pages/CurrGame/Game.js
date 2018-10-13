@@ -6,6 +6,7 @@ var INSERT_DISK = "/pages/CurrGame/Game/insertDisk";
 var GAME_BOARD_URL = "/pages/CurrGame/Game/GameBoard";
 var POPOUT_DISK = "/pages/CurrGame/Game/popOutDisk";
 var RESET_GAME_URL = "/pages/CurrGame/Game/resetGame";
+var ACTIVE_PLAYERS_URL = "/pages/CurrGame/Game/activePlayers";
 
 var loggedUser;
 var CurrGameName;
@@ -21,6 +22,7 @@ $(function() {
     setInterval(ajaxUsersList, refreshRate);
     setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
+    setInterval(checkComputerTurnAndPlay, refreshRate);
     setInterval(getNextTurnInfoByGameName, refreshRate);
     isWinnerIntervalID = setInterval(checkWinner, 3000);
 
@@ -37,14 +39,40 @@ $(function() {
 
 })
 
-function checkWinner()
+
+function checkComputerTurnAndPlay()
 {
-    if(isWinner)
-    {
+    // $.ajax({
+    //     type: 'GET',
+    //     url: ACTIVE_PLAYERS_URL,
+    //     data: {"gameName": CurrGameName},
+    //     success: function (res) {
+    //         if (res) {
+    //             $("#winnerArea").text("Everyone left the game - YOU WON!");
+    //             isWinner = true;
+    //         }
+    //     }
+    // });
+}
+
+function checkWinner() {
+    if (isWinner) {
         resetGame();
         logOutFromGame(true);
         clearInterval(isWinnerIntervalID);
-
+    }
+    else {
+        $.ajax({
+            type: 'GET',
+            url: ACTIVE_PLAYERS_URL,
+            data: {"gameName": CurrGameName},
+            success: function (res) {
+                if (res) {
+                    $("#winnerArea").text("Everyone left the game - YOU WON!");
+                    isWinner = true;
+                }
+            }
+        });
     }
 }
 
@@ -122,7 +150,7 @@ function isActiveGame()
                 if (JSON.stringify(res.isActive) !== JSON.stringify(isActive)) {
                     isActive = res.isActive;
                     if (res.isActive) {
-                        drawGameBoard(res.gameBoard);
+                        drawGameBoard(res.gameBoard, res.gameType);
                         updateGameInfo(CurrGameName);
                         gameBoardUpdateInervalID = setInterval(updateGameBoardAjax,refreshRate);
                     }
@@ -147,7 +175,7 @@ function updateGameInfo(gameName)
 }
 
 
-function drawGameBoard(gameBoard) {
+function drawGameBoard(gameBoard, gameType) {
     console.log(gameBoard);
     var rows = gameBoard.length;
     var cols = gameBoard[0].length;
@@ -160,12 +188,14 @@ function drawGameBoard(gameBoard) {
                     btn.onclick = insertDisc;
                     $("#board").append(btn);
                 }
-                else if (i === rows+1 ){
-                    var btn = document.createElement("BUTTON");
-                    btn.setAttribute("class","popOut");
-                    btn.setAttribute("id",j);
-                    btn.onclick = popOutDisc;
-                    $("#board").append(btn);
+                else if (i === rows+1) {
+                    if (gameType.toLowerCase() === "popout") {
+                        var btn = document.createElement("BUTTON");
+                        btn.setAttribute("class", "popOut");
+                        btn.setAttribute("id", j);
+                        btn.onclick = popOutDisc;
+                        $("#board").append(btn);
+                    }
                 }
                 else {
                     var currId = (i-1)+"X"+j;

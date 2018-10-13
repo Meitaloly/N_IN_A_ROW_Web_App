@@ -59,6 +59,7 @@ public class GameInList {
             if(currGameManager.checkIfHumanAndPopout(col))
             {
                 setCurrPlayerNameTurn();
+                currGameManager.checkConputerTurn();
             }
         }
 
@@ -73,6 +74,7 @@ public class GameInList {
             if(currGameManager.checkIfHumanAndInsert(col))
             {
                 setCurrPlayerNameTurn();
+                currGameManager.checkConputerTurn();
             }
         }
         return currGameManager.getGameBoard().getBoard();
@@ -82,6 +84,7 @@ public class GameInList {
         GameBoard board = currGameManager.getGameBoard();
         if(!isWinner) {
             board.removeAllDisksOfPlayer(p);
+            getCurrGameManager().getPlayersByOrder().remove(p);
         }
     }
 

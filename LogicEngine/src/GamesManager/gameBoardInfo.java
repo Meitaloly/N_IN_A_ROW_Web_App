@@ -10,7 +10,15 @@ import java.util.Map;
 public class gameBoardInfo {
     private boolean isActive;
     private int[][] gameBoard;
+    private String gameType;
 
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
 
     public int[][] getGameBoard() {
         return gameBoard;

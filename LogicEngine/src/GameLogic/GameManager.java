@@ -149,6 +149,37 @@ public class GameManager {
         setTurnIndex(0);
     }
 
+    public void checkConputerTurn()
+    {
+        if(getPlayersByOrder().get(turnIndex).getPlayerType().toLowerCase().equals("computer")) {
+            ComputerChoice computerChoice = ComputerPlay();
+            if(computerChoice.getSucceeded())
+            {
+                if(computerChoice.getPopout())
+                {
+                    if (gameBoard.checkSignAndRemove(computerChoice.getChoosenCol(), playersByOrder.get(turnIndex).getPlayerSign()))
+                    {
+                        incCurrPlayerTurn();
+                        incTurnIndex();
+                    }
+                }
+                else
+                {
+                    if(!checkColFullInBoard(computerChoice.getChoosenCol()))
+                    {
+                        gameBoard.setSignOnBoard(computerChoice.getChoosenCol(),playersByOrder.get(turnIndex));
+                        incCurrPlayerTurn();
+                        incTurnIndex();
+                    }
+                }
+            }
+            else
+            {
+                System.out.print("gameOver - computer can't play");
+            }
+        }
+    }
+
     private void resetPlayersData()
     {
         for(GameLogic.Player player : playersByOrder)

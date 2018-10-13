@@ -3,7 +3,6 @@ package Servlets;
 import GamesManager.GameInList;
 import GamesManager.GameManager;
 import GamesManager.gameBoardInfo;
-import UserAuthentication.User;
 import UserAuthentication.UserManager;
 import com.google.gson.Gson;
 import utils.ServletUtils;
@@ -13,27 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
-public class isActiveGameServlet extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+public class ActivePlayersServlet extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = ServletUtils.getGameManager(request.getServletContext());
-        UserManager userManager = ServletUtils.getUserManager(request.getServletContext());
         String gameName = request.getParameter("gameName");
         GameInList game = gameManager.getGameInListByName(gameName);
-        boolean active = game.isActive();
-        gameBoardInfo res = new gameBoardInfo();
-        res.setActive(active);
-        res.setGameType(game.getVariant());
-        if(active)
+        Boolean leftAlone = false;
+        if(game.getCurrGameManager().getPlayersByOrder().size() == 1)
         {
-            int[][] gameBoard = game.getCurrGameManager().getGameBoard().getBoard();
-            res.setGameBoard(gameBoard);
+            game.setStatus("Not Active");
+            leftAlone = true;
         }
-
-        String json = new Gson().toJson(res);
+        String json = new Gson().toJson(leftAlone);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);
@@ -79,5 +70,4 @@ public class isActiveGameServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
