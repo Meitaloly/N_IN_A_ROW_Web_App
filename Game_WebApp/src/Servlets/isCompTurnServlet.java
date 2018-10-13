@@ -2,6 +2,7 @@ package Servlets;
 
 import GamesManager.GameInList;
 import GamesManager.GameManager;
+import GamesManager.gameBoardInfo;
 import UserAuthentication.User;
 import UserAuthentication.UserManager;
 import com.google.gson.Gson;
@@ -12,53 +13,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
-public class GameInfoServlet extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        GameManager gameManager = ServletUtils.getGameManager(getServletContext());
+public class  isCompTurnServlet extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        GameManager gameManager = ServletUtils.getGameManager(request.getServletContext());
+        UserManager userManager = ServletUtils.getUserManager(request.getServletContext());
         String gameName = request.getParameter("gameName");
-        GameInList currGame = gameManager.getGameInListByName(gameName);
-            if (currGame.isActive() && !currGame.isArrayByOrder()) {
-                UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
-                System.out.println("in GameInfoServlet");
-                Map<String, User> players = userManager.getUsersOfCurrGame(gameName);
-                System.out.println("create array in GameInfoServlet");
-                currGame.addPlayersWithColors(players);
-            }
-        String json = new Gson().toJson(currGame);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+        GameInList game = gameManager.getGameInListByName(gameName);
+        String player = game.getPlayerTurn();
+        Map<String, User> players = userManager.getUsers();
+        User currPlayer = players.get(player);
+        if(currPlayer.getType().equals("Computer"))
+        {
+            game.getCurrGameManager().checkConputerTurn();
+            game.setNextPlayerName();
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        final PrintWriter out = response.getWriter();
+        out.write("OK");
+        out.close();
     }
-//
-//    protected void processRequestGet(HttpServletRequest request, HttpServletResponse response) {
-//
-//    }
 
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -75,4 +78,5 @@ public class GameInfoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

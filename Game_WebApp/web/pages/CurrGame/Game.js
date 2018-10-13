@@ -7,6 +7,7 @@ var GAME_BOARD_URL = "/pages/CurrGame/Game/GameBoard";
 var POPOUT_DISK = "/pages/CurrGame/Game/popOutDisk";
 var RESET_GAME_URL = "/pages/CurrGame/Game/resetGame";
 var ACTIVE_PLAYERS_URL = "/pages/CurrGame/Game/activePlayers";
+var IS_COMP_TURN_URL = "/pages/CurrGame/Game/isCompTurn";
 
 var loggedUser;
 var CurrGameName;
@@ -42,17 +43,14 @@ $(function() {
 
 function checkComputerTurnAndPlay()
 {
-    // $.ajax({
-    //     type: 'GET',
-    //     url: ACTIVE_PLAYERS_URL,
-    //     data: {"gameName": CurrGameName},
-    //     success: function (res) {
-    //         if (res) {
-    //             $("#winnerArea").text("Everyone left the game - YOU WON!");
-    //             isWinner = true;
-    //         }
-    //     }
-    // });
+     $.ajax({
+         type: 'GET',
+         url: IS_COMP_TURN_URL,
+         data: {"gameName": CurrGameName},
+         success:function(){
+             getNextTurnInfoByGameName();
+         }
+     });
 }
 
 function checkWinner() {
@@ -147,6 +145,7 @@ function isActiveGame()
             url: ACTIVE_GAME_URL,
             data: {"gameName": CurrGameName},
             success: function (res) {
+                //setInterval(checkComputerTurnAndPlay, refreshRate);
                 if (JSON.stringify(res.isActive) !== JSON.stringify(isActive)) {
                     isActive = res.isActive;
                     if (res.isActive) {

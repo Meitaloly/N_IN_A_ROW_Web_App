@@ -72,6 +72,14 @@
         <servlet-name>ActivePlayersServlet</servlet-name>
         <servlet-class>Servlets.ActivePlayersServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>isCompTurnServlet</servlet-name>
+        <servlet-class>Servlets.isCompTurnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>isCompTurnServlet</servlet-name>
+        <url-pattern>/pages/CurrGame/Game/isCompTurn</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActivePlayersServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/activePlayers</url-pattern>
@@ -92,10 +100,10 @@
         <servlet-name>InsertDiskServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/insertDisk</url-pattern>
     </servlet-mapping>
-<servlet-mapping>
+    <servlet-mapping>
     <servlet-name>GameBoardServlet</servlet-name>
     <url-pattern>/pages/CurrGame/Game/GameBoard</url-pattern>
-</servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>isActiveGameServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/isActiveGame</url-pattern>

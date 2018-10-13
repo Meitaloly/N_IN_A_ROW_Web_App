@@ -26,6 +26,7 @@ public class UpdatedPlayersInGameServlet extends HttpServlet {
                 if (currGame.isActive()) {
 
                     UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
+                    System.out.println("in UpdatedPlayersInGameServlet");
                     Map<String, User> players = userManager.getUsersOfCurrGame(gameName);
                     System.out.println("create array in UpdatedPlayersInGameServlet ");
                     currGame.addPlayersWithColors(players);
