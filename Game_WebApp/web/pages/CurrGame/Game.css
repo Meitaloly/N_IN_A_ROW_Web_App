@@ -224,3 +224,10 @@ td{
 .popOut:hover {
     //background-color: lightgreen;
 }
+
+
+#winnerArea{
+    font-family: sans-serif;
+    font-size: 30px;
+    color: red;
+}

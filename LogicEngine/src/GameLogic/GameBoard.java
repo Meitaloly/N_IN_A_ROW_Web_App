@@ -589,14 +589,22 @@ public class GameBoard {
     }
 
 
-    public boolean checkAnyWinner(int col, List<Integer> winnersList)
+    public boolean checkAnyWinner(int col, List<Integer> winnersList, String gameType)
     {
         boolean res = false;
+        boolean winner;
 
         for(int i = (int)this.rows-1; i>=0; i--)
         {
-            if(board[i][col]!=-1) {
-                if (isDiagonal(i, col) || isHorizontal(i,col) || isVertical(i,col)) {
+            int index = winnersList.indexOf(board[i][col]);
+            if(board[i][col]!=-1 && index == -1) {
+                if (gameType.toUpperCase().equals("CIRCULAR")) {
+                    winner = isDiagonal(i, col) || isHorizontalCircular(i, col) || isVerticalCircular(i, col);
+                } else {
+                    winner = isDiagonal(i, col) || isHorizontal(i, col) || isVertical(i, col);
+                }
+                if(winner)
+                {
                     winnersList.add(board[i][col]);
                     res= true;
                 }

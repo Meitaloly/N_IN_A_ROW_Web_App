@@ -13,25 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GameBoardServlet extends HttpServlet {
+public class ResetGameServlet extends HttpServlet {
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = ServletUtils.getGameManager(request.getServletContext());
         String gameName = request.getParameter("gameName");
         GameInList game = gameManager.getGameInListByName(gameName);
-        List<String> winners = game.checkAnyPlayerWins();
-        int [][] gameBoard = game.getCurrGameManager().getGameBoard().getBoard();
-        BoardAndWinners res = new BoardAndWinners();
-        res.setGameBoard(gameBoard);
-        res.setWinners(winners);
-        if(!winners.isEmpty())
-        {
-            game.setStatus("Not Active");
-        }
-        String json = new Gson().toJson(res);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+        game.resetGame();
     }
 
     /**

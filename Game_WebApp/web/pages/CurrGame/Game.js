@@ -5,19 +5,24 @@ var ACTIVE_GAME_URL = "/pages/CurrGame/Game/isActiveGame";
 var INSERT_DISK = "/pages/CurrGame/Game/insertDisk";
 var GAME_BOARD_URL = "/pages/CurrGame/Game/GameBoard";
 var POPOUT_DISK = "/pages/CurrGame/Game/popOutDisk";
+var RESET_GAME_URL = "/pages/CurrGame/Game/resetGame";
 
 var loggedUser;
 var CurrGameName;
 var gameBoard;
 var isActive = false;
 var gameUsers = [];
-
+var gameBoardUpdateInervalID;
+var isWinner = false;
+var isWinnerIntervalID;
+var winnerMsg;
 
 $(function() {
     setInterval(ajaxUsersList, refreshRate);
     setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
     setInterval(getNextTurnInfoByGameName, refreshRate);
+    isWinnerIntervalID = setInterval(checkWinner, 3000);
 
     $(function(){
         $.ajax({
@@ -32,16 +37,60 @@ $(function() {
 
 })
 
+function checkWinner()
+{
+    if(isWinner)
+    {
+        resetGame();
+        logOutFromGame(true);
+        clearInterval(isWinnerIntervalID);
 
+    }
+}
+
+function resetGame()
+{
+    $.ajax({
+        type: 'POST',
+        url: RESET_GAME_URL,
+        data: {"gameName": CurrGameName}
+    });
+
+
+
+}
 function updateGameBoardAjax()
 {
     $.ajax({
         type: 'GET',
         url: GAME_BOARD_URL,
         data: {"gameName": CurrGameName},
-        success: function (newGameBoard) {
-            if (JSON.stringify(newGameBoard) !== JSON.stringify(gameBoard)) {
-                updateGameBoard(newGameBoard);
+        success: function (res) {
+            if (JSON.stringify(res.gameBoard) !== JSON.stringify(gameBoard) || res.winners.length > 0) {
+                gameBoard = res.gameBoard;
+                updateGameBoard(res.gameBoard);
+                if(res.winners.length > 0)
+                {
+                    winnerMsg = "";
+                    if(res.winners.length === 1)
+                    {
+                        winnerMsg = res.winners[0] + " is the winner!";
+                    }
+                    else
+                    {
+                        winnerMsg = "The winners are: ";
+                        for(var j=0; j<res.winners.length; j++)
+                        {
+                            winnerMsg += " " + res.winners[j];
+                        }
+                    }
+                    $("#winnerArea").text(winnerMsg);
+                    //alert(winnerMsg);
+                    console.log("winner msg: ",winnerMsg);
+                    clearInterval(gameBoardUpdateInervalID);
+                    isWinner = true;
+                    //setTimeout(function(){ logOutFromGame(true); }, 3000);
+                }
             }
         }
     });
@@ -75,7 +124,7 @@ function isActiveGame()
                     if (res.isActive) {
                         drawGameBoard(res.gameBoard);
                         updateGameInfo(CurrGameName);
-                        setInterval(updateGameBoardAjax,refreshRate);
+                        gameBoardUpdateInervalID = setInterval(updateGameBoardAjax,refreshRate);
                     }
                 }
             }
@@ -276,16 +325,17 @@ function showNextTurnInfoOnScreen(game)
 
 }
 
-function logOutFromGame() {
+function logOutFromGame(isWinner) {
         $.ajax({
             type: 'POST',
             url: "/pages/CurrGame/Game/LogoutFromCurrGameServlet",
-            data: {"username" : loggedUser},
+            data: {"username" : loggedUser, "isWinner" : isWinner},
             success: function (response) {
                 console.log("you loggedd out!");
                 window.location.replace("/pages/GameLobby/Lobby.html");
-                updateGameBoardAjax();
-                //updateGameBoard();
+                if (!isWinner) {
+                    updateGameBoardAjax();
+                }
             },
         });
 

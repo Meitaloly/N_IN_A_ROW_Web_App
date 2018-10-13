@@ -42,6 +42,12 @@ public class LogoutFromCurrGameServlet extends HttpServlet {
             GameManager gameManager = utils.ServletUtils.getGameManager(getServletContext());
             UserManager userManager = ServletUtils.getUserManager(getServletContext());
             Map<String, User> players = userManager.getUsers();
+            String isWinnerString = request.getParameter("isWinner");
+            boolean isWinner = false;
+            if(isWinnerString.toLowerCase().equals("true"))
+            {
+                isWinner =true;
+            }
             //user is not logged in yet
             String usernameFromParameter = request.getParameter("username");
             //normalize the username value
@@ -67,7 +73,7 @@ public class LogoutFromCurrGameServlet extends HttpServlet {
                 if (userManager.isUserExists(usernameFromParameter)) {
                     userManager.updateGameName(usernameFromParameter,null);
                     if(currGame.isActive()){
-                        currGame.logOutFromActivGame(currGame.getCurrGameManager().getPlayer(usernameFromParameter));
+                        currGame.logOutFromActivGame(currGame.getCurrGameManager().getPlayer(usernameFromParameter),isWinner);
                     }
                     // username already exists, forward the request back to index.jsp
                     // with a parameter that indicates that an error should be displayed

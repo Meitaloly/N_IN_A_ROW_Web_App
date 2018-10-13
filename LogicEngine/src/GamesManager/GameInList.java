@@ -5,6 +5,8 @@ import GameLogic.GameManager;
 import GameLogic.Player;
 import UserAuthentication.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GameInList {
@@ -21,6 +23,17 @@ public class GameInList {
     private String playerTurn ="";
     private boolean isCreate= false;
     private int numOfCompPlayers = 0;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void resetGame()
+    {
+        isCreate = false;
+        numOfCompPlayers=0;
+        currGameManager.resetGame();
+    }
 
     public boolean incNumOfCompPlayers(){
         if (numOfCompPlayers == numOfPlayersRequired-1){
@@ -65,9 +78,11 @@ public class GameInList {
         return currGameManager.getGameBoard().getBoard();
     }
 
-    public void logOutFromActivGame(Player p){
+    public void logOutFromActivGame(Player p, boolean isWinner){
         GameBoard board = currGameManager.getGameBoard();
-        board.removeAllDisksOfPlayer(p);
+        if(!isWinner) {
+            board.removeAllDisksOfPlayer(p);
+        }
     }
 
 
@@ -107,6 +122,12 @@ public class GameInList {
 
     public GameManager getCurrGameManager() {
         return currGameManager;
+    }
+
+    public List<String> checkAnyPlayerWins() {
+        List<String> winners = new ArrayList<>();
+        winners = currGameManager.checkAnyWinners();
+        return winners;
     }
 
     private String getValueFromSplitString(String strToSplit, String firstStr, String SecStr)

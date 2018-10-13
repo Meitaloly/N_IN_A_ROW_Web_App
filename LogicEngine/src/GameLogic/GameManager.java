@@ -71,7 +71,6 @@ public class GameManager {
             {
                 gameBoard.setSignOnBoard(col,playersByOrder.get(turnIndex));
                 incCurrPlayerTurn();
-                gameBoard.checkPlayerWin(col,variant);
                 incTurnIndex();
                 res = true;
             }
@@ -87,13 +86,41 @@ public class GameManager {
             if (gameBoard.checkSignAndRemove(col, playersByOrder.get(turnIndex).getPlayerSign()))
             {
                 incCurrPlayerTurn();
-                gameBoard.checkPlayerWin(col,variant);
                 incTurnIndex();
                 res = true;
             }
         }
         return res;
     }
+
+    public List<String> checkAnyWinners()
+    {
+        List<Integer> winnerSigns = new ArrayList<>();
+        List<String> winners = new ArrayList<>();
+
+        for(int i=0; i<gameBoard.getCols(); i++)
+        {
+            gameBoard.checkAnyWinner(i,winnerSigns,variant);
+        }
+
+        if(!winnerSigns.isEmpty())
+        {
+            convertSignsToPlayers(winnerSigns,winners);
+        }
+
+        return winners;
+    }
+
+    public void convertSignsToPlayers(List<Integer> signs, List<String> players)
+    {
+        for(Integer sign : signs)
+        {
+            players.add(playersByOrder.get(sign).getName());
+        }
+    }
+
+
+
 
     public void setGameBoard(int rows, int cols, int target)
     {
@@ -117,9 +144,9 @@ public class GameManager {
     {
         gameBoard.reset();
         setActiveGame(false);
-        resetPlayersData();
+        playersByOrder.clear();
+        //resetPlayersData();
         setTurnIndex(0);
-
     }
 
     private void resetPlayersData()
