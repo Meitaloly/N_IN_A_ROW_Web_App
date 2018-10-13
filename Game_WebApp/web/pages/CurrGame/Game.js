@@ -101,9 +101,7 @@ function updateGameInfo(gameName)
 function drawGameBoard(gameBoard) {
     console.log(gameBoard);
     var rows = gameBoard.length;
-    console.log("rows" + rows);
     var cols = gameBoard[0].length;
-    console.log("cols" + cols);
     for (var i = 0; i <= rows+1; i++) {
         for(var j=0; j<cols; j++) {
                 if(i===0) {
@@ -161,7 +159,7 @@ function setColorOnCell(value, row, col )
 
     switch(value) {
         case 0:
-            color = "green";
+            color = "pink";
             break;
         case 1:
             color = "blue";
@@ -173,7 +171,7 @@ function setColorOnCell(value, row, col )
             color = "yellow";
             break;
         case 4:
-            color = "pink";
+            color = "green";
             break;
         case 5:
             color = "aqua";
@@ -286,12 +284,19 @@ function logOutFromGame() {
             success: function (response) {
                 console.log("you loggedd out!");
                 window.location.replace("/pages/GameLobby/Lobby.html");
+                updateGameBoardAjax();
+                //updateGameBoard();
             },
-        })
+        });
 
-    $.ajax({
+         $.ajax({
             type: 'POST',
             url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
-            data: {"gameName": CurrGameName, "action": "remove"}
-    })
+            data: {"gameName": CurrGameName, "action": "remove"},
+
+           /* error:function() {
+                alert("Only one player remains in the game\n" +
+                    "Technical victory");
+            },*/
+         });
 }

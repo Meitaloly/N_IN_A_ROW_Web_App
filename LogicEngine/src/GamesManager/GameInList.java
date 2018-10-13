@@ -1,6 +1,8 @@
 package GamesManager;
 
+import GameLogic.GameBoard;
 import GameLogic.GameManager;
+import GameLogic.Player;
 import UserAuthentication.User;
 
 import java.util.Map;
@@ -18,6 +20,17 @@ public class GameInList {
     private GameManager currGameManager;
     private String playerTurn ="";
     private boolean isCreate= false;
+    private int numOfCompPlayers = 0;
+
+    public boolean incNumOfCompPlayers(){
+        if (numOfCompPlayers == numOfPlayersRequired-1){
+            return false;
+        }
+        else{
+            numOfCompPlayers++;
+            return true;
+        }
+    }
 
 
     public void printPlayers(){
@@ -50,6 +63,11 @@ public class GameInList {
             }
         }
         return currGameManager.getGameBoard().getBoard();
+    }
+
+    public void logOutFromActivGame(Player p){
+        GameBoard board = currGameManager.getGameBoard();
+        board.removeAllDisksOfPlayer(p);
     }
 
 

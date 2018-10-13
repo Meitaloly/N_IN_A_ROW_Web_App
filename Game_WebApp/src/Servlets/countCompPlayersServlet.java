@@ -4,6 +4,7 @@ import GamesManager.GameInList;
 import GamesManager.GameManager;
 import UserAuthentication.User;
 import UserAuthentication.UserManager;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,46 +13,48 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
-public class UpdatedPlayersInGameServlet extends HttpServlet {
+public class countCompPlayersServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GameManager gameManager = utils.ServletUtils.getGameManager(getServletContext());
-        String gameName = request.getParameter("gameName");
-        String action = request.getParameter("action");
-        GameInList currGame = gameManager.getGameInListByName(gameName);
+        UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
+        Map<String, User> players = userManager.getUsers();
+        String userNameFromParam = request.getParameter("userName");
+        String gameNameFRomParam = request.getParameter("gameName");
+
+        userNameFromParam = userNameFromParam.trim();
+        gameNameFRomParam = gameNameFRomParam.trim();
+
+
+        GameInList currGame = gameManager.getGameInListByName(gameNameFRomParam);
+        User CurrUser = players.get(userNameFromParam);
         response.setContentType("text/html;charset=UTF-8");
         final PrintWriter out;
-            if (action.equals("add")) {
-                currGame.incNumOfSignedPlayers();
-                if (currGame.isActive()) {
-
-                    UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
-                    Map<String, User> players = userManager.getUsersOfCurrGame(gameName);
-                    System.out.println("create array in UpdatedPlayersInGameServlet ");
-                    currGame.addPlayersWithColors(players);
+            if(CurrUser.getType().equals("Computer"))
+            {
+                if (currGame.incNumOfCompPlayers()) {
                     response.setStatus(HttpServletResponse.SC_OK);
                     out = response.getWriter();
                     out.print("success");
                     out.close();
-                } else {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "game is not active");
+                }
+                else{
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "only computer players");
                     out = response.getWriter();
                     out.print("error");
                     out.close();
                 }
-            } else if(currGame.isActive()){
-                currGame.decNumOfSignedPlayers();
-                if (currGame.getCurrNumOfPlayersInGame()==1) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-                }
             }
-            else{
-                currGame.decNumOfSignedPlayers();
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+                out = response.getWriter();
+                out.print("success");
+                out.close();
             }
 
-            return;
-        }
-
+        return;
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**
@@ -92,3 +95,4 @@ public class UpdatedPlayersInGameServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
+

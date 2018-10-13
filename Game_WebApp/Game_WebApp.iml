@@ -39,5 +39,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="apache-tomcat-8.5" level="project" />
   </component>
 </module>

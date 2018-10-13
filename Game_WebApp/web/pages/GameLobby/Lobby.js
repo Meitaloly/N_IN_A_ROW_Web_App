@@ -163,11 +163,25 @@ $(document).ready(function(){
 function openGame(btn) {
     var parent_id = $(btn).parent().attr('id');
     var gameName = parent_id.replace("-"," ");
-    updateNumOfPlayerInCurrGame(gameName);
-    updateGameName(loggedUser,gameName);
-    window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
 
-};
+
+    $.ajax({
+        type: 'POST',
+        url: "/pages/GameLobby/Lobby/compPlayer",
+        data: {"userName":loggedUser,"gameName": gameName},
+
+         success:function(){
+             updateNumOfPlayerInCurrGame(gameName);
+             updateGameName(loggedUser, gameName);
+             window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
+             console.log("computer enter ok")
+         },
+         error:function() {
+             alert("Can't play game with only computer player, should be at least 1 human player.");
+         }
+    });
+
+}
 
 function updateGameName(userName,gameName){
     $.ajax({

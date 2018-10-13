@@ -60,6 +60,14 @@
         <servlet-name>PopOutDiskServlet</servlet-name>
         <servlet-class>Servlets.PopOutDiskServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>countCompPlayersServlet</servlet-name>
+        <servlet-class>Servlets.countCompPlayersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>countCompPlayersServlet</servlet-name>
+        <url-pattern>/pages/GameLobby/Lobby/compPlayer</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PopOutDiskServlet</servlet-name>
         <url-pattern>/pages/CurrGame/Game/popOutDisk</url-pattern>

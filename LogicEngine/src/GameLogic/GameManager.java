@@ -17,6 +17,15 @@ public class GameManager {
 
     //private GameHistory history;
 
+    public Player getPlayer (String playerName){
+        for(Player p:playersByOrder){
+            if (p.getName().equals(playerName)){
+                return p;
+            }
+        }
+         return null;
+    }
+
     public void incTurnIndex() {
         turnIndex++;
         if (playersByOrder.size() <= turnIndex) {
@@ -130,7 +139,7 @@ public class GameManager {
         return activeGame;
     }
 
-        public ArrayList<GameLogic.Player> getPlayersByOrder() {
+    public ArrayList<GameLogic.Player> getPlayersByOrder() {
         return playersByOrder;
     }
 

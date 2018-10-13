@@ -1,10 +1,14 @@
 package Servlets;
 
+import GamesManager.GameInList;
+import GamesManager.GameManager;
+import UserAuthentication.User;
 import UserAuthentication.UserManager;
 import constants.Constants;
 import utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +39,16 @@ public class LogoutFromCurrGameServlet extends HttpServlet {
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             response.setContentType("text/html;charset=UTF-8");
+            GameManager gameManager = utils.ServletUtils.getGameManager(getServletContext());
             UserManager userManager = ServletUtils.getUserManager(getServletContext());
+            Map<String, User> players = userManager.getUsers();
             //user is not logged in yet
             String usernameFromParameter = request.getParameter("username");
             //normalize the username value
             usernameFromParameter = usernameFromParameter.trim();
+            User CurrUser = players.get(usernameFromParameter);
+            String gameName = CurrUser.getGame();
+            GameInList currGame = gameManager.getGameInListByName(gameName);
 
         /*
         One can ask why not enclose all the synchronizations inside the userManager object ?
@@ -57,6 +66,9 @@ public class LogoutFromCurrGameServlet extends HttpServlet {
             synchronized (this) {
                 if (userManager.isUserExists(usernameFromParameter)) {
                     userManager.updateGameName(usernameFromParameter,null);
+                    if(currGame.isActive()){
+                        currGame.logOutFromActivGame(currGame.getCurrGameManager().getPlayer(usernameFromParameter));
+                    }
                     // username already exists, forward the request back to index.jsp
                     // with a parameter that indicates that an error should be displayed
                     // the request dispatcher obtained from the servlet context is one that MUST get an absolute path (starting with'/')
