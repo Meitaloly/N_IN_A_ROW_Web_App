@@ -20,6 +20,7 @@ public class PopOutDiskServlet extends HttpServlet {
         Integer col = Integer.valueOf(request.getParameter("col"));
         GameInList game = gameManager.getGameInListByName(gameName);
         int [][] gameBoard = game.popOutDisk(playerName, col);
+        game.setNextPlayerName();/////////////////////////////////////////////////////////////////////////
         String json = new Gson().toJson(gameBoard);
         response.getWriter().write(json);
     }

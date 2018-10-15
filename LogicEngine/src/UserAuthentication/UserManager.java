@@ -24,10 +24,17 @@ public class UserManager {
         Map<String, User> res = new HashMap<>();
         for(User user : users.values())
         {
-            if(user.getGame().equals(gameName))
-            {
-                res.put(user.getUserName(),user);
-            }
+            System.out.println();
+            System.out.println(user.getUserName());
+            System.out.println(user.getType());
+            System.out.println(user.getGame());
+            System.out.println();
+
+           if(user.getGame() != null ) {
+                if (user.getGame().equals(gameName)) {
+                    res.put(user.getUserName(), user);
+                }
+           }
         }
         return res;
     }

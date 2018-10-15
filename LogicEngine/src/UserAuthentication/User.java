@@ -20,10 +20,6 @@ public class User {
         return type;
     }
 
-    public String getUserGame() {
-        return game;
-    }
-
     public String getUserName() {
         return userName;
     }

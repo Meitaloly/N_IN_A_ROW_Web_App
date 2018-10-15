@@ -21,6 +21,7 @@ public class ActivePlayersServlet extends HttpServlet {
         Boolean leftAlone = false;
         if(game.getCurrGameManager().getPlayersByOrder().size() == 1)
         {
+            UserManager userManager = utils.ServletUtils.getUserManager(getServletContext());
             game.setStatus("Not Active");
             leftAlone = true;
         }

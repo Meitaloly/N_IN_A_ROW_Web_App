@@ -72,6 +72,7 @@
         <servlet-name>ActivePlayersServlet</servlet-name>
         <servlet-class>Servlets.ActivePlayersServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>isCompTurnServlet</servlet-name>
         <servlet-class>Servlets.isCompTurnServlet</servlet-class>

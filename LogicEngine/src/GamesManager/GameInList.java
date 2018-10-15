@@ -59,7 +59,7 @@ public class GameInList {
             if(currGameManager.checkIfHumanAndPopout(col))
             {
                 setCurrPlayerNameTurn();
-                //currGameManager.checkConputerTurn();
+                currGameManager.checkConputerTurn();
             }
         }
 
@@ -74,7 +74,7 @@ public class GameInList {
             if(currGameManager.checkIfHumanAndInsert(col))
             {
                 setCurrPlayerNameTurn();
-                //currGameManager.checkConputerTurn();
+                currGameManager.checkConputerTurn();
             }
         }
         return currGameManager.getGameBoard().getBoard();

@@ -23,9 +23,11 @@ $(function() {
     setInterval(ajaxUsersList, refreshRate);
     setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
-    setInterval(checkComputerTurnAndPlay, refreshRate);
+   // setInterval(checkComputerTurnAndPlay, 3000);
     setInterval(getNextTurnInfoByGameName, refreshRate);
     isWinnerIntervalID = setInterval(checkWinner, 3000);
+
+    checkComputerTurnAndPlay();
 
     $(function(){
         $.ajax({
@@ -36,9 +38,12 @@ $(function() {
                 $(".currUser").text(user);
             }
         });
+
     })
 
+
 })
+
 
 
 function checkComputerTurnAndPlay()
@@ -275,6 +280,7 @@ function popOutDisc(){
         url: POPOUT_DISK,
         data: {"gameName": CurrGameName , "playerName": loggedUser, "col":this.id},
     });
+
 }
 
 function refreshUsersList(users) {

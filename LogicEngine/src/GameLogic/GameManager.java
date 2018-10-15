@@ -372,7 +372,7 @@ public class GameManager {
     private String setDickColor(int index) {
         switch (index) {
             case 0:
-                return ("green");
+                return "pink";
 
             case 1:
                 return "blue";
@@ -384,7 +384,7 @@ public class GameManager {
                 return "yellow";
 
             case 4:
-                return "pink";
+                return "green";
 
             case 5:
                 return "aqua";

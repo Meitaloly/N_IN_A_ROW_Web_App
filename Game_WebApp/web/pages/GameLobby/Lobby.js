@@ -171,8 +171,8 @@ function openGame(btn) {
         data: {"userName":loggedUser,"gameName": gameName},
 
          success:function(){
-             updateNumOfPlayerInCurrGame(gameName);
              updateGameName(loggedUser, gameName);
+             updateNumOfPlayerInCurrGame(gameName);
              window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
              console.log("computer enter ok")
          },
