@@ -1,5 +1,5 @@
 var LOGIN_URL = buildUrlWithContextPath("pages/SignUp/login");
-
+var GO_TO_LOBBY = buildUrlWithContextPath("/pages/GameLobby/Lobby.html");
 
 $(document).ready(function(){
   $("#formId").on('submit', function (e)
@@ -27,7 +27,7 @@ $(document).ready(function(){
               data: {"username": userName, "playerType": playerType},
               success: function (response) {
                   console.log("success!");
-                  window.location.replace(LOGIN_URL);
+                  window.location.replace(GO_TO_LOBBY);
               },
               error: function (xhttp, sth, msg) {
                   console.log("user exist!!");

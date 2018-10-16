@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Meital
@@ -5,6 +6,7 @@
   Time: 19:10
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
@@ -19,7 +21,7 @@
       <img class = "titleImg" src="Images/NinARow-title1.png">
     </div>
     <div class = "homePage-Menu">
-      <a href="pages/SignUp/SignUpPage.html" class="enterBtn" role="button">ENTER</a>
+      <a href="/Game_WebApp_war/pages/SignUp/SignUpPage.html" class="enterBtn" role="button">ENTER</a>
 
         <%--<form class = "enterForm" id="enterForm" method="GET" action="/enter">--%>
             <%--<input class = "enterBtn" type="submit" value="Enter"/>--%>

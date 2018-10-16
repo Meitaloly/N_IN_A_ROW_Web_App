@@ -5,10 +5,12 @@
         <link rel="stylesheet" href="Lobby.css">
         <link rel="stylesheet" href="../common/common.css">
         <script src="../../Utills/jquery-2.0.3.min.js"></script>
+        <script src = "../../Utills/context-path.js"></script>
+        <script src="./Lobby.js"></script>
         <title>Lobby</title>
     </head>
     <body>
-        <img class = "titleImg" src="../Images/Lobby-title.png">
+        <img class = "titleImg" src="/Game_WebApp_war/Images/Lobby-title.png">
         <div class="logout">
             <form id="logoutForm" action="logout">
                 <span class="heyToUser">Hello </span>
@@ -43,8 +45,7 @@
 
         </div>
     </body>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./Lobby.js"></script>
+
 
     <div class= "gameInList" id="mock-template" style = "display: none">
         <div>Game's name: {{gameName}}</div>
