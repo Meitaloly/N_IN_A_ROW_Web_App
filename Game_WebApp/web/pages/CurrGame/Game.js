@@ -11,7 +11,7 @@ var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("/pages/CurrGame/Game/activePla
 var IS_COMP_TURN_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isCompTurn");
 var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("/pages/CurrGame/Game/LogoutFromCurrGameServlet");
 var NEXT_PLAYER_URL =  buildUrlWithContextPath("/pages/CurrGame/Game/nextPlayer");
-var LOBBY = buildUrlWithContextPath("pages/GameLobby/Lobby.html");
+var LOBBY_URL = buildUrlWithContextPath("pages/GameLobby/Lobby.html");
 var UPDATE_SIGNED_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updatedSignedPlayers");
 
 var loggedUser;
@@ -374,7 +374,7 @@ function logOutFromGame(isWinner) {
             data: {"username" : loggedUser, "isWinner" : isWinner},
             success: function (response) {
                 console.log("you loggedd out!");
-                window.location.replace(LOBBY);
+                window.location.replace(LOBBY_URL);
                 if (!isWinner) {
                     clearInterval(isActiveIntervalId);
                     isActive = false;
