@@ -9,21 +9,21 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/pages/HomePage/HomePage.css">
-    <link rel="stylesheet" href="/pages/common/common.css">
+    <link rel="stylesheet" href="pages/HomePage/HomePage.css">
+    <link rel="stylesheet" href="pages/common/common.css">
     <title>N In a Row Game</title>
   </head>
   <body>
   <div class="HomePage-Container">
     <div class="homePage-Header">
-      <img class = "titleImg" src="/Images/NinARow-title1.png">
+      <img class = "titleImg" src="Images/NinARow-title1.png">
     </div>
     <div class = "homePage-Menu">
-        <form class = "enterForm" method="GET" action="/enter">
-            <input class = "enterBtn" type="submit" value="Enter"/>
-        </form>
+      <a href="pages/SignUp/SignUpPage.html" class="enterBtn" role="button">ENTER</a>
+
+        <%--<form class = "enterForm" id="enterForm" method="GET" action="/enter">--%>
+            <%--<input class = "enterBtn" type="submit" value="Enter"/>--%>
+        <%--</form>--%>
     </div>
   </div>
-
-
-</body>
+  </body>

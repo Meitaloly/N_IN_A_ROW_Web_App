@@ -3,8 +3,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="SignUpPage.css">
-        <link rel="stylesheet" href="./../common/common.css">
-
+        <link rel="stylesheet" href="../common/common.css">
+        <script src="../../Utills/jquery-2.0.3.min.js"></script>
+        <script src = "../../Utills/context-path.js"></script>
+        <script src="./signUpJs.js"></script>
         <title>Login</title>
 
         <!-- Link the Bootstrap (from twitter) CSS framework in order to use its classes-->
@@ -16,7 +18,7 @@
     </head>
     <body>
         <div class="container">
-            <img class = "titleImg" src="/Images/welcomeTitle.png">
+            <img class = "titleImg" src="/Game_WebApp_war/Images/welcomeTitle.png">
             <br/>
             <div class="pleaseLine">Please enter a unique user name:</div>
             <form id ="formId" class="loginForm" method="GET" action="login">
@@ -35,6 +37,4 @@
             </div>
         </div>
     </body>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./signUpJs.js"></script>
 </html>

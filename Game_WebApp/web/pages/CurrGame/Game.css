@@ -189,7 +189,7 @@ td{
     height: 50px;
     width: 50px;
     margin: 1%;
-    background-image: url("/pages/../Images/arrow.jpg");
+    background-image: url("/Game_WebApp_war/pages/../Images/arrow.jpg");
     background-position: center;
     background-size: 45px 45px;
     background-color: Transparent;
@@ -209,7 +209,7 @@ td{
     height: 50px;
     width: 50px;
     margin: 1%;
-    background-image: url("/pages/../Images/removeDisk.png");
+    background-image: url("/Game_WebApp_war/pages/../Images/removeDisk.png");
     background-position: center;
     background-size: 45px 45px;
     cursor: pointer;

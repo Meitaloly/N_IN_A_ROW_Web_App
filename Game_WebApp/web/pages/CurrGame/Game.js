@@ -1,13 +1,17 @@
 var refreshRate = 1000; //mili seconds
-var PLAYER_LIST_URL = "/pages/CurrGame/Game/userlist";
-var GAME_INFO_URL = "/pages/CurrGame/Game/GameInfo";
-var ACTIVE_GAME_URL = "/pages/CurrGame/Game/isActiveGame";
-var INSERT_DISK = "/pages/CurrGame/Game/insertDisk";
-var GAME_BOARD_URL = "/pages/CurrGame/Game/GameBoard";
-var POPOUT_DISK = "/pages/CurrGame/Game/popOutDisk";
-var RESET_GAME_URL = "/pages/CurrGame/Game/resetGame";
-var ACTIVE_PLAYERS_URL = "/pages/CurrGame/Game/activePlayers";
-var IS_COMP_TURN_URL = "/pages/CurrGame/Game/isCompTurn";
+var LOGGED_USER_SERVLET = buildUrlWithContextPath("/pages/CurrGame/Game/loggedUser");
+var PLAYER_LIST_URL = buildUrlWithContextPath("/pages/CurrGame/Game/userlist");
+var GAME_INFO_URL = buildUrlWithContextPath("/pages/CurrGame/Game/GameInfo");
+var ACTIVE_GAME_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isActiveGame");
+var INSERT_DISK = buildUrlWithContextPath("/pages/CurrGame/Game/insertDisk");
+var GAME_BOARD_URL = buildUrlWithContextPath("/pages/CurrGame/Game/GameBoard");
+var POPOUT_DISK = buildUrlWithContextPath("/pages/CurrGame/Game/popOutDisk");
+var RESET_GAME_URL = buildUrlWithContextPath("/pages/CurrGame/Game/resetGame");
+var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("/pages/CurrGame/Game/activePlayers");
+var IS_COMP_TURN_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isCompTurn");
+var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("/pages/CurrGame/Game/LogoutFromCurrGameServlet");
+var NEXT_PLAYER_URL =  buildUrlWithContextPath("/pages/CurrGame/Game/nextPlayer");
+var LOBBY = buildUrlWithContextPath("/pages/GameLobby/Lobby.html");
 
 var loggedUser;
 var CurrGameName;
@@ -32,7 +36,7 @@ $(function() {
     $(function(){
         $.ajax({
             type: 'GET',
-            url: "/pages/CurrGame/Game/loggedUser",
+            url: LOGGED_USER_SERVLET,
             success: function(user) {
                 loggedUser = user;
                 $(".currUser").text(user);
@@ -60,9 +64,10 @@ function checkComputerTurnAndPlay()
 
 function checkWinner() {
     if (isWinner) {
-        resetGame();
-        logOutFromGame(true);
         clearInterval(isWinnerIntervalID);
+        resetGame();
+        logOutFromGame(isWinner);
+
     }
     else {
         $.ajax({
@@ -347,7 +352,7 @@ function getNextTurnInfoByGameName()
     $.ajax({
         type: 'POST',
         data: {"gameName" : CurrGameName},
-        url: "/pages/CurrGame/Game/nextPlayer",
+        url: NEXT_PLAYER_URL,
         success: function (game) {
             showNextTurnInfoOnScreen(game);
         }
@@ -363,11 +368,11 @@ function showNextTurnInfoOnScreen(game)
 function logOutFromGame(isWinner) {
         $.ajax({
             type: 'POST',
-            url: "/pages/CurrGame/Game/LogoutFromCurrGameServlet",
+            url: LOGOUT_FROM_CURR_GAME,
             data: {"username" : loggedUser, "isWinner" : isWinner},
             success: function (response) {
                 console.log("you loggedd out!");
-                window.location.replace("/pages/GameLobby/Lobby.html");
+                window.location.replace(LOBBY);
                 if (!isWinner) {
                     updateGameBoardAjax();
                 }
@@ -376,7 +381,7 @@ function logOutFromGame(isWinner) {
 
          $.ajax({
             type: 'POST',
-            url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
+            url: UPDATE_SIGNED_URL,
             data: {"gameName": CurrGameName, "action": "remove"},
 
            /* error:function() {
@@ -385,3 +390,24 @@ function logOutFromGame(isWinner) {
             },*/
          });
 }
+
+
+// extract the context path using the window.location data items
+function calculateContextPath() {
+    var pathWithoutLeadingSlash = window.location.pathname.substring(1);
+    var contextPathEndIndex = pathWithoutLeadingSlash.indexOf('/');
+    return pathWithoutLeadingSlash.substr(0, contextPathEndIndex)
+}
+
+// returns a function that holds within her closure the context path.
+// the returned function is one that accepts a resource to fetch,
+// and returns a new resource with the context path at its prefix
+function wrapBuildingURLWithContextPath() {
+    var contextPath = calculateContextPath();
+    return function(resource) {
+        return "/" + contextPath + "/" + resource;
+    };
+}
+
+// call the wrapper method and expose a final method to be used to build complete resource names (buildUrlWithContextPath)
+var buildUrlWithContextPath = wrapBuildingURLWithContextPath();

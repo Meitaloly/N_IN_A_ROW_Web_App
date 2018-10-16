@@ -33,6 +33,11 @@ public class GameInList {
         isCreate = false;
         numOfCompPlayers=0;
         currGameManager.resetGame();
+        resetNextPlayerName();
+    }
+
+    public void resetNextPlayerName(){
+        this.playerTurn ="";
     }
 
     public boolean incNumOfCompPlayers(){
@@ -193,7 +198,7 @@ public class GameInList {
     public boolean isActive()
     {
         boolean res = true;
-        if(status.equals("Not active"))
+        if(status.equals("Not Active"))
         {
             res = false;
         }

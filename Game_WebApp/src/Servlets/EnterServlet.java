@@ -11,8 +11,8 @@ import java.io.IOException;
 
 public class EnterServlet extends HttpServlet {
 
-    private final String LOBBY_PAGE = "/pages/GameLobby/Lobby.html";
-    private final String SIGN_UP_URL = "/pages/SignUp/SignUpPage.html";
+    private final String LOBBY_PAGE = "/Game_WebApp_war/pages/GameLobby/Lobby.html";
+    private final String SIGN_UP_URL = "/Game_WebApp_war/pages/SignUp/SignUpPage.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

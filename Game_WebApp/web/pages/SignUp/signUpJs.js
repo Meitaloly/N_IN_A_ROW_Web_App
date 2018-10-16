@@ -1,3 +1,6 @@
+var LOGIN_URL = buildUrlWithContextPath("pages/SignUp/login");
+
+
 $(document).ready(function(){
   $("#formId").on('submit', function (e)
   {
@@ -21,7 +24,7 @@ $(document).ready(function(){
 
       $.ajax({
           type: 'POST',
-          url: "/pages/SignUp/login",
+          url: LOGIN_URL,
           data: {"username" : userName, "playerType" : playerType},
           success: function(response)
           {
@@ -47,3 +50,4 @@ $('.userNameInput').on('input', function(e){
         $('.loginBtn').attr('disabled', true);
     }
 })
+

@@ -1,6 +1,13 @@
 var refreshRate = 1000; //mili seconds
-var USER_LIST_URL = "/pages/GameLobby/Lobby/userslist";
-var GAME_LIST_URL = "/pages/GameLobby/Lobby/gameList";
+var USER_LIST_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/userslist");
+var GAME_LIST_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/gameList");
+var LOGOUT_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/logout");
+var CREATE_GAME_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/createNewGame");
+var COMP_PLAYER_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/compPlayer");
+var UPDATE_USER_GAME_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updateUserGameServlet");
+var UPDATE_SIGNED_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updatedSignedPlayers");
+var SIGN_UP_PAGES = buildUrlWithContextPath("/pages/SignUp/SignUpPage.html");
+var GAME_PAGE = buildUrlWithContextPath("/pages/CurrGame/Game.html");
 var currGames ={};
 var loggedUser;
 
@@ -13,7 +20,7 @@ $(function() {
 $(function(){
     $.ajax({
         type: 'GET',
-        url: "/pages/GameLobby/Lobby/logout",
+        url: LOGOUT_URL,
         success: function(user) {
             loggedUser = user;
             $(".currUser").text(user);
@@ -111,12 +118,12 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: "/pages/GameLobby/Lobby/logout",
+            url: LOGOUT_URL,
             //data: {"username" : userName, "playerType" : playerType},
             success: function(response)
             {
                 console.log("you loggedd out!");
-                window.location.replace("/pages/SignUp/SignUpPage.html");
+                window.location.replace(SIGN_UP_PAGES);
             },
         })
     });
@@ -140,7 +147,7 @@ $(document).ready(function(){
                 method: 'POST',
                 data:formData,
                 //data: file,
-                url: "/pages/GameLobby/Lobby/createNewGame",
+                url: CREATE_GAME_URL,
                 processData: false, // Don't process the files
                 contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                 //timeout: 4000,
@@ -167,13 +174,13 @@ function openGame(btn) {
 
     $.ajax({
         type: 'POST',
-        url: "/pages/GameLobby/Lobby/compPlayer",
+        url: COMP_PLAYER_URL,
         data: {"userName":loggedUser,"gameName": gameName},
 
          success:function(){
              updateGameName(loggedUser, gameName);
              updateNumOfPlayerInCurrGame(gameName);
-             window.location.replace("/pages/CurrGame/Game.html?gameName=" + parent_id);
+             window.location.replace(GAME_PAGE+"?gameName=" + parent_id);
              console.log("computer enter ok")
          },
          error:function() {
@@ -186,7 +193,7 @@ function openGame(btn) {
 function updateGameName(userName,gameName){
     $.ajax({
         type: 'POST',
-        url: "/pages/GameLobby/Lobby/updateUserGameServlet",
+        url: UPDATE_USER_GAME_URL,
         data: {"username" : userName, "gameName" : gameName}
     })
 }
@@ -196,7 +203,7 @@ function updateGameName(userName,gameName){
 function updateNumOfPlayerInCurrGame(gameName){
     $.ajax({
         type: 'POST',
-        url: "/pages/GameLobby/Lobby/updatedSignedPlayers",
+        url: UPDATE_SIGNED_URL,
         data: {"gameName": gameName, "action": "add"},
     })
 }
@@ -207,13 +214,34 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: "/pages/GameLobby/Lobby/createNewGame",
+            url: CREATE_GAME_URL,
             //data: {"username" : userName, "playerType" : playerType},
             success: function(response)
             {
                 console.log("you loggedd out!");
-                window.location.replace("/pages/SignUp/SignUpPage.html");
+                window.location.replace(SIGN_UP_PAGES);
             },
         })
     })
 })
+
+
+// extract the context path using the window.location data items
+function calculateContextPath() {
+    var pathWithoutLeadingSlash = window.location.pathname.substring(1);
+    var contextPathEndIndex = pathWithoutLeadingSlash.indexOf('/');
+    return pathWithoutLeadingSlash.substr(0, contextPathEndIndex)
+}
+
+// returns a function that holds within her closure the context path.
+// the returned function is one that accepts a resource to fetch,
+// and returns a new resource with the context path at its prefix
+function wrapBuildingURLWithContextPath() {
+    var contextPath = calculateContextPath();
+    return function(resource) {
+        return "/" + contextPath + "/" + resource;
+    };
+}
+
+// call the wrapper method and expose a final method to be used to build complete resource names (buildUrlWithContextPath)
+var buildUrlWithContextPath = wrapBuildingURLWithContextPath();
