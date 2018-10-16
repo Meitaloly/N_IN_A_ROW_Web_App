@@ -180,6 +180,7 @@ public class GameManager {
         }
     }
 
+
     private void resetPlayersData()
     {
         for(GameLogic.Player player : playersByOrder)

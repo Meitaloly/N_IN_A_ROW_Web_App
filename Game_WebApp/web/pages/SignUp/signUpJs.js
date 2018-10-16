@@ -1,5 +1,5 @@
 var LOGIN_URL = buildUrlWithContextPath("pages/SignUp/login");
-var GO_TO_LOBBY = buildUrlWithContextPath("/pages/GameLobby/Lobby.html");
+var GO_TO_LOBBY = buildUrlWithContextPath("pages/GameLobby/Lobby.html");
 
 $(document).ready(function(){
   $("#formId").on('submit', function (e)

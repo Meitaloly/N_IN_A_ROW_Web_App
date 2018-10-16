@@ -11,7 +11,7 @@ var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("/pages/CurrGame/Game/activePla
 var IS_COMP_TURN_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isCompTurn");
 var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("/pages/CurrGame/Game/LogoutFromCurrGameServlet");
 var NEXT_PLAYER_URL =  buildUrlWithContextPath("/pages/CurrGame/Game/nextPlayer");
-var LOBBY = buildUrlWithContextPath("/pages/GameLobby/Lobby.html");
+var LOBBY = buildUrlWithContextPath("pages/GameLobby/Lobby.html");
 var UPDATE_SIGNED_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updatedSignedPlayers");
 
 var loggedUser;
@@ -33,7 +33,7 @@ $(function() {
     setInterval(ajaxUsersList, refreshRate);
     isActiveIntervalId = setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
-   // setInterval(checkComputerTurnAndPlay, 3000);
+    setInterval(checkComputerTurnAndPlay, 3000);
     setInterval(getNextTurnInfoByGameName, refreshRate);
     isWinnerIntervalID = setInterval(checkWinner, 3000);
 
@@ -395,23 +395,3 @@ function logOutFromGame(isWinner) {
          });
 }
 
-
-// extract the context path using the window.location data items
-function calculateContextPath() {
-    var pathWithoutLeadingSlash = window.location.pathname.substring(1);
-    var contextPathEndIndex = pathWithoutLeadingSlash.indexOf('/');
-    return pathWithoutLeadingSlash.substr(0, contextPathEndIndex)
-}
-
-// returns a function that holds within her closure the context path.
-// the returned function is one that accepts a resource to fetch,
-// and returns a new resource with the context path at its prefix
-function wrapBuildingURLWithContextPath() {
-    var contextPath = calculateContextPath();
-    return function(resource) {
-        return "/" + contextPath + "/" + resource;
-    };
-}
-
-// call the wrapper method and expose a final method to be used to build complete resource names (buildUrlWithContextPath)
-var buildUrlWithContextPath = wrapBuildingURLWithContextPath();
