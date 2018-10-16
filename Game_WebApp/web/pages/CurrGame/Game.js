@@ -1,18 +1,18 @@
 var refreshRate = 1000; //mili seconds
-var LOGGED_USER_SERVLET = buildUrlWithContextPath("/pages/CurrGame/Game/loggedUser");
-var PLAYER_LIST_URL = buildUrlWithContextPath("/pages/CurrGame/Game/userlist");
-var GAME_INFO_URL = buildUrlWithContextPath("/pages/CurrGame/Game/GameInfo");
-var ACTIVE_GAME_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isActiveGame");
-var INSERT_DISK = buildUrlWithContextPath("/pages/CurrGame/Game/insertDisk");
-var GAME_BOARD_URL = buildUrlWithContextPath("/pages/CurrGame/Game/GameBoard");
-var POPOUT_DISK = buildUrlWithContextPath("/pages/CurrGame/Game/popOutDisk");
-var RESET_GAME_URL = buildUrlWithContextPath("/pages/CurrGame/Game/resetGame");
-var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("/pages/CurrGame/Game/activePlayers");
-var IS_COMP_TURN_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isCompTurn");
-var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("/pages/CurrGame/Game/LogoutFromCurrGameServlet");
-var NEXT_PLAYER_URL =  buildUrlWithContextPath("/pages/CurrGame/Game/nextPlayer");
+var LOGGED_USER_SERVLET = buildUrlWithContextPath("pages/CurrGame/Game/loggedUser");
+var PLAYER_LIST_URL = buildUrlWithContextPath("pages/CurrGame/Game/userlist");
+var GAME_INFO_URL = buildUrlWithContextPath("pages/CurrGame/Game/GameInfo");
+var ACTIVE_GAME_URL = buildUrlWithContextPath("pages/CurrGame/Game/isActiveGame");
+var INSERT_DISK = buildUrlWithContextPath("pages/CurrGame/Game/insertDisk");
+var GAME_BOARD_URL = buildUrlWithContextPath("pages/CurrGame/Game/GameBoard");
+var POPOUT_DISK = buildUrlWithContextPath("pages/CurrGame/Game/popOutDisk");
+var RESET_GAME_URL = buildUrlWithContextPath("pages/CurrGame/Game/resetGame");
+var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("pages/CurrGame/Game/activePlayers");
+var IS_COMP_TURN_URL = buildUrlWithContextPath("pages/CurrGame/Game/isCompTurn");
+var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("pages/CurrGame/Game/LogoutFromCurrGameServlet");
+var NEXT_PLAYER_URL =  buildUrlWithContextPath("pages/CurrGame/Game/nextPlayer");
 var LOBBY_URL = buildUrlWithContextPath("pages/GameLobby/Lobby.html");
-var UPDATE_SIGNED_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updatedSignedPlayers");
+var UPDATE_SIGNED_URL = buildUrlWithContextPath("pages/GameLobby/Lobby/updatedSignedPlayers");
 
 var loggedUser;
 var CurrGameName;
