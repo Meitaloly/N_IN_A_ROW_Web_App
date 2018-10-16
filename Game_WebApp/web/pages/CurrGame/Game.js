@@ -1,18 +1,18 @@
 var refreshRate = 1000; //mili seconds
-var LOGGED_USER_SERVLET = buildUrlWithContextPath("/pages/CurrGame/Game/loggedUser");
-var PLAYER_LIST_URL = buildUrlWithContextPath("/pages/CurrGame/Game/userlist");
-var GAME_INFO_URL = buildUrlWithContextPath("/pages/CurrGame/Game/GameInfo");
-var ACTIVE_GAME_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isActiveGame");
-var INSERT_DISK = buildUrlWithContextPath("/pages/CurrGame/Game/insertDisk");
-var GAME_BOARD_URL = buildUrlWithContextPath("/pages/CurrGame/Game/GameBoard");
-var POPOUT_DISK = buildUrlWithContextPath("/pages/CurrGame/Game/popOutDisk");
-var RESET_GAME_URL = buildUrlWithContextPath("/pages/CurrGame/Game/resetGame");
-var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("/pages/CurrGame/Game/activePlayers");
-var IS_COMP_TURN_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isCompTurn");
-var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("/pages/CurrGame/Game/LogoutFromCurrGameServlet");
-var NEXT_PLAYER_URL =  buildUrlWithContextPath("/pages/CurrGame/Game/nextPlayer");
+var LOGGED_USER_SERVLET = buildUrlWithContextPath("pages/CurrGame/Game/loggedUser");
+var PLAYER_LIST_URL = buildUrlWithContextPath("pages/CurrGame/Game/userlist");
+var GAME_INFO_URL = buildUrlWithContextPath("pages/CurrGame/Game/GameInfo");
+var ACTIVE_GAME_URL = buildUrlWithContextPath("pages/CurrGame/Game/isActiveGame");
+var INSERT_DISK = buildUrlWithContextPath("pages/CurrGame/Game/insertDisk");
+var GAME_BOARD_URL = buildUrlWithContextPath("pages/CurrGame/Game/GameBoard");
+var POPOUT_DISK = buildUrlWithContextPath("pages/CurrGame/Game/popOutDisk");
+var RESET_GAME_URL = buildUrlWithContextPath("ges/CurrGame/Game/resetGame");
+var ACTIVE_PLAYERS_URL = buildUrlWithContextPath("pages/CurrGame/Game/activePlayers");
+var IS_COMP_TURN_URL = buildUrlWithContextPath("pages/CurrGame/Game/isCompTurn");
+var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("pages/CurrGame/Game/LogoutFromCurrGameServlet");
+var NEXT_PLAYER_URL =  buildUrlWithContextPath("pages/CurrGame/Game/nextPlayer");
 var LOBBY_URL = buildUrlWithContextPath("pages/GameLobby/Lobby.html");
-var UPDATE_SIGNED_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updatedSignedPlayers");
+var UPDATE_SIGNED_URL = buildUrlWithContextPath("pages/GameLobby/Lobby/updatedSignedPlayers");
 
 var loggedUser;
 var CurrGameName;
@@ -368,30 +368,28 @@ function showNextTurnInfoOnScreen(game)
 }
 
 function logOutFromGame(isWinner) {
-        $.ajax({
+    $.ajax({
+        type: 'POST',
+        url: UPDATE_SIGNED_URL,
+        data: {"gameName": CurrGameName, "action": "remove"},
+    });
+
+
+    $.ajax({
             type: 'POST',
             url: LOGOUT_FROM_CURR_GAME,
             data: {"username" : loggedUser, "isWinner" : isWinner},
             success: function (response) {
-                console.log("you loggedd out!");
-                window.location.replace(LOBBY_URL);
+                console.log("logout is ok!");
                 if (!isWinner) {
+                    console.log("logout but no winner!");
                     clearInterval(isActiveIntervalId);
-                    isActive = false;
+                    // isActive = false;
                     updateGameBoardAjax();
                 }
+                console.log("back to lobby now: ");
+                window.location.replace(LOBBY_URL);
             },
         });
-
-         $.ajax({
-            type: 'POST',
-            url: UPDATE_SIGNED_URL,
-            data: {"gameName": CurrGameName, "action": "remove"},
-
-           /* error:function() {
-                alert("Only one player remains in the game\n" +
-                    "Technical victory");
-            },*/
-         });
 }
 
