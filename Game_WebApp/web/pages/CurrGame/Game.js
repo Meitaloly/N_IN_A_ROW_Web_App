@@ -12,6 +12,7 @@ var IS_COMP_TURN_URL = buildUrlWithContextPath("/pages/CurrGame/Game/isCompTurn"
 var LOGOUT_FROM_CURR_GAME = buildUrlWithContextPath("/pages/CurrGame/Game/LogoutFromCurrGameServlet");
 var NEXT_PLAYER_URL =  buildUrlWithContextPath("/pages/CurrGame/Game/nextPlayer");
 var LOBBY = buildUrlWithContextPath("/pages/GameLobby/Lobby.html");
+var UPDATE_SIGNED_URL = buildUrlWithContextPath("/pages/GameLobby/Lobby/updatedSignedPlayers");
 
 var loggedUser;
 var CurrGameName;

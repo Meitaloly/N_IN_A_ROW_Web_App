@@ -193,7 +193,7 @@ public class GameInList {
     public boolean isActive()
     {
         boolean res = true;
-        if(status.equals("Not active"))
+        if(status.equals("Not Active"))
         {
             res = false;
         }
