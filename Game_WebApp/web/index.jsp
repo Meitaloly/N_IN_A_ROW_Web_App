@@ -21,7 +21,10 @@
       <img class = "titleImg" src="Images/NinARow-title1.png">
     </div>
     <div class = "homePage-Menu">
-      <a href="/Game_WebApp_war/pages/SignUp/SignUpPage.html" class="enterBtn" role="button">ENTER</a>
+      <button  class="btn enterBtn">
+        <a class="aClass" href="/Game_WebApp_war/pages/SignUp/SignUpPage.html"> ENTER </a>
+      </button>
+
 
         <%--<form class = "enterForm" id="enterForm" method="GET" action="/enter">--%>
             <%--<input class = "enterBtn" type="submit" value="Enter"/>--%>

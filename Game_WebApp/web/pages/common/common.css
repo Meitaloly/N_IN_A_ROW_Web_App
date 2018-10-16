@@ -38,3 +38,21 @@ input[type="submit"]:hover {
             linear-gradient(#4bb7be, #8c9987),
             linear-gradient(#039195, #c87a6a);
 }
+
+a:link {
+    color: white;
+    font-family: sans-serif;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.aClass{
+    color:white;
+}
+
+a:visited {
+    color: white;
+    font-family: sans-serif;
+    background-color: transparent;
+    text-decoration: none;
+}
