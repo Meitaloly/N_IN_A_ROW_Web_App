@@ -105,8 +105,6 @@ function refreshGamesList(games) {
             {
                 $('#' + gameClass).children('.btn').removeClass('btnDisable');
                 $('#' + gameClass).children('.btn').addClass('btnShown');
-
-
             }
         });
     }

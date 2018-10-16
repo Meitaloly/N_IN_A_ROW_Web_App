@@ -24,14 +24,17 @@ var isWinnerIntervalID;
 var winnerMsg;
 
 $(function() {
+    var urlArr = window.location.href.split("?");
+    var nameArr = urlArr[1].split("=");
+    CurrGameName = nameArr[1].replace("-"," ");
+
+    resetGame();
     setInterval(ajaxUsersList, refreshRate);
-    setInterval(isActiveGame, refreshRate);
+    isActiveIntervalId = setInterval(isActiveGame, refreshRate);
     getGameInfoByGameName();
    // setInterval(checkComputerTurnAndPlay, 3000);
     setInterval(getNextTurnInfoByGameName, refreshRate);
     isWinnerIntervalID = setInterval(checkWinner, 3000);
-
-    checkComputerTurnAndPlay();
 
     $(function(){
         $.ajax({
@@ -86,6 +89,7 @@ function checkWinner() {
 
 function resetGame()
 {
+    isActive = false;
     $.ajax({
         type: 'POST',
         url: RESET_GAME_URL,
@@ -162,6 +166,7 @@ function isActiveGame()
                         drawGameBoard(res.gameBoard, res.gameType);
                         updateGameInfo(CurrGameName);
                         gameBoardUpdateInervalID = setInterval(updateGameBoardAjax,refreshRate);
+                        checkComputerTurnAndPlay();
                     }
                 }
             }
@@ -307,10 +312,6 @@ function refreshUsersList(users) {
 
 function getGameInfoByGameName()
 {
-    var urlArr = window.location.href.split("?");
-    var nameArr = urlArr[1].split("=");
-    CurrGameName = nameArr[1].replace("-"," ");
-
     $.ajax({
         type: 'POST',
         data: {"gameName" : CurrGameName},
@@ -374,6 +375,8 @@ function logOutFromGame(isWinner) {
                 console.log("you loggedd out!");
                 window.location.replace(LOBBY);
                 if (!isWinner) {
+                    clearInterval(isActiveIntervalId);
+                    isActive = false;
                     updateGameBoardAjax();
                 }
             },
