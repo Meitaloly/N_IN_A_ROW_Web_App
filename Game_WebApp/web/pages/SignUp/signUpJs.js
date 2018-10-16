@@ -8,36 +8,35 @@ $(document).ready(function(){
 
       var userName = $('.userNameInput').val();
 
-      var radios = document.getElementsByName('playerType');
+      if( userName !=="") {
+          var radios = document.getElementsByName('playerType');
 
-      for (var i = 0, length = radios.length; i < length; i++)
-      {
-          if (radios[i].checked)
-          {
-              // do whatever you want with the checked radio
-              var playerType = radios[i].value;
+          for (var i = 0, length = radios.length; i < length; i++) {
+              if (radios[i].checked) {
+                  // do whatever you want with the checked radio
+                  var playerType = radios[i].value;
 
-              // only one radio can be logically checked, don't check the rest
-              break;
+                  // only one radio can be logically checked, don't check the rest
+                  break;
+              }
           }
+
+          $.ajax({
+              type: 'POST',
+              url: LOGIN_URL,
+              data: {"username": userName, "playerType": playerType},
+              success: function (response) {
+                  console.log("success!");
+                  window.location.replace(LOGIN_URL);
+              },
+              error: function (xhttp, sth, msg) {
+                  console.log("user exist!!");
+                  $(".errorLine").fadeIn("fast");
+              }
+          })
       }
-
-      $.ajax({
-          type: 'POST',
-          url: LOGIN_URL,
-          data: {"username" : userName, "playerType" : playerType},
-          success: function(response)
-          {
-              console.log("success!");
-              window.location.replace("/pages/GameLobby/Lobby.html");
-          },
-          error: function(xhttp, sth, msg)
-          {
-              console.log("user exist!!");
-              $(".errorLine").fadeIn("fast");
-          }
-      })
   })
+
 });
 
 $('.userNameInput').on('input', function(e){
