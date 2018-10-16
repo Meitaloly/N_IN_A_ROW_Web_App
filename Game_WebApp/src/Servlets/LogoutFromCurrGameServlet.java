@@ -22,10 +22,10 @@ public class LogoutFromCurrGameServlet extends HttpServlet {
         // you can use absolute paths, but then you need to build them from scratch, starting from the context path
         // ( can be fetched from request.getContextPath() ) and then the 'absolute' path from it.
         // Each method with it's pros and cons....
-
-        private final String LOBBY_PAGE = "/pages/GameLobby/Lobby.html";
-        private final String SIGN_UP_URL = "/pages/SignUp/SingUpPage.html";
-        private final String LOGIN_ERROR_URL = "/pages/Error_user_name/Error_name.html";  // must start with '/' since will be used in request dispatcher...
+//
+//        private final String LOBBY_PAGE = "/pages/GameLobby/Lobby.html";
+//        private final String SIGN_UP_URL = "/pages/SignUp/SingUpPage.html";
+//        private final String LOGIN_ERROR_URL = "/pages/Error_user_name/Error_name.html";  // must start with '/' since will be used in request dispatcher...
 
         /**
          * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,8 +72,11 @@ public class LogoutFromCurrGameServlet extends HttpServlet {
             synchronized (this) {
                 if (userManager.isUserExists(usernameFromParameter)) {
                     userManager.updateGameName(usernameFromParameter,null);
+                    System.out.println("LOGOUT_FROM_CURR_GAME_SERVLET");
+                    System.out.println("is active game (servlet) " + currGame.isActive());
                     if(currGame.isActive()){
                         currGame.logOutFromActivGame(currGame.getCurrGameManager().getPlayer(usernameFromParameter),isWinner);
+                        System.out.println("user is try to logout");
                     }
                     // username already exists, forward the request back to index.jsp
                     // with a parameter that indicates that an error should be displayed

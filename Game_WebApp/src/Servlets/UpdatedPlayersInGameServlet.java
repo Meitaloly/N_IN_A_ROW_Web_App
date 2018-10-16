@@ -40,13 +40,13 @@ public class UpdatedPlayersInGameServlet extends HttpServlet {
                     out.print("error");
                     out.close();
                 }
-            } else if(currGame.isActive()){
-                currGame.decNumOfSignedPlayers();
-                if (currGame.getCurrNumOfPlayersInGame()==1) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-                }
-            }
-            else{
+//            } else if(currGame.isActive()){
+//                currGame.decNumOfSignedPlayers();
+//                if (currGame.getCurrNumOfPlayersInGame()==1) {
+//                    response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+//                }
+//            }
+            }else{
                 currGame.decNumOfSignedPlayers();
             }
 

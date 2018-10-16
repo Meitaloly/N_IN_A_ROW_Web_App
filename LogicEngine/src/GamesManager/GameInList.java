@@ -18,7 +18,7 @@ public class GameInList {
     private String gameName;
     private int numOfPlayersRequired;
     private int currNumOfPlayersInGame = 0;
-    private String status = "Not active";
+    private String status = "Not Active";
     private GameManager currGameManager;
     private String playerTurn ="";
     private boolean isCreate= false;
